@@ -1,0 +1,2556 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
+//using System.Windows.Documents;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+
+
+
+namespace ICLB_Pancake
+{
+    [TestClass]
+    public class UnitTest1
+    {
+        [TestMethod]
+        public void ICLB()
+        {
+            var chromeOptions1 = new ChromeOptions(); chromeOptions1.AddArgument("--disable-blink-features=AutomationControlled");
+            IWebDriver driver = new ChromeDriver(chromeOptions1);
+            var w = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            Thread.Sleep(10000);
+            Task.Delay(10000);
+            driver.Url = "https://www.indoex.io/";
+
+            Thread.Sleep(10000);
+            Task.Delay(10000);
+
+            Actions actions = new Actions(driver);
+
+
+            By BITMARTWhiteButton = By.ClassName("component-theme-switcher");
+
+
+            int Name_Value = 200000;
+            int filePath_Value = (Name_Value * 2);
+            int s = 1, checkAl = 1, checkSat = 1;
+
+            string Old_Final = DateTime.Now.ToString("yyyy.MM.dd.HH.mm.ss");
+            string Final_Text_EROR = "0-" + Old_Final + "_EROR_FINAL.txt", Final_Text_INDOEX = "1-" + Old_Final + "_INDOEX_FINAL.txt", Final_Text_COINSBIT = "2-" + Old_Final + "_COINSBIT_FINAL.txt", Final_Text_LATOKEN = "6-" + Old_Final + "_LATOKEN_FINAL.txt", Final_Text_P2PB2B = "4-" + Old_Final + "_P2PB2B_FINAL.txt", Final_Text_DEXTRADE = "3-" + Old_Final + "_DEXTRADE_FINAL.txt";
+            string INDOEX_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_TEXTS\";
+            string P2PB2B_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\P2PB2B\P2PB2B_TEXTS\";
+            string DEXTRADE_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\DEXTRADE\DEXTRADE_TEXTS\";
+            string COINSBIT_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\COINSBIT\COINSBIT_TEXTS\";
+            string LATOKEN_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\LATOKEN\LATOKEN_TEXTS\";
+            string PANCAKE_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\PANCAKE_HEPSI\PANCAKE_TEXTS\";
+            string Path = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\FINAL ALL TEXT\";
+
+            string[] ALIS_SATIS_P2PB2B = new string[3];
+            ALIS_SATIS_P2PB2B[1] = "_P2PB2B_ALIS.txt";
+            ALIS_SATIS_P2PB2B[2] = "_P2PB2B_SATIS.txt";
+            string[] ALIS_SATIS_DEXTRADE = new string[3];
+            ALIS_SATIS_DEXTRADE[1] = "_DEXTRADE_ALIS.txt";
+            ALIS_SATIS_DEXTRADE[2] = "_DEXTRADE_SATIS.txt";
+            string[] ALIS_SATIS_INDOEX = new string[3];
+            ALIS_SATIS_INDOEX[1] = "_INDOEX_ALIS.txt";
+            ALIS_SATIS_INDOEX[2] = "_INDOEX_SATIS.txt";
+            string[] ALIS_SATIS_COINSBIT = new string[3];
+            ALIS_SATIS_COINSBIT[1] = "_COINSBIT_ALIS.txt";
+            ALIS_SATIS_COINSBIT[2] = "_COINSBIT_SATIS.txt";
+            string[] ALIS_SATIS_LATOKEN = new string[3];
+            ALIS_SATIS_LATOKEN[1] = "_LATOKEN_ALIS.txt";
+            ALIS_SATIS_LATOKEN[2] = "_LATOKEN_SATIS.txt";
+
+
+
+
+            // Klasördeki tüm dosyaları ve alt klasörlerdeki dosyaları al
+            string[] dosyaYollari = Directory.GetFiles(COINSBIT_Texts_File_Location, "*", SearchOption.AllDirectories);
+
+            // Her dosya için döngü yaparak dosyaları sil
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(LATOKEN_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(INDOEX_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(COINSBIT_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(P2PB2B_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(DEXTRADE_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+            dosyaYollari = Directory.GetFiles(PANCAKE_Texts_File_Location, "*", SearchOption.AllDirectories);
+            foreach (string dosyaYolu in dosyaYollari)
+            {
+                File.Delete(dosyaYolu);
+            }
+
+            string[] filePath_INDOEX_Alis = new string[filePath_Value];
+            string[] filePath_INDOEX_Satis = new string[filePath_Value];
+            string[] filePath_Coinsbit_Alis = new string[filePath_Value];
+            string[] filePath_Coinsbit_Satis = new string[filePath_Value];
+            string[] filePath_Latoken_Alis = new string[filePath_Value];
+            string[] filePath_Latoken_Satis = new string[filePath_Value];
+            string[] filePath_P2pb2b_Alis = new string[filePath_Value];
+            string[] filePath_P2pb2b_Satis = new string[filePath_Value];
+            string[] filePath_Dextrade_Alis = new string[filePath_Value];
+            string[] filePath_Dextrade_Satis = new string[filePath_Value];
+            string[] filePath_P = new string[filePath_Value];
+            string[] Name = new string[filePath_Value];
+            string[] Contract = new string[filePath_Value];
+            int[] ACTIVE = new int[filePath_Value];
+            int[] Ten = new int[filePath_Value];
+            int[] Hundered = new int[filePath_Value];
+            int[] OneK = new int[filePath_Value];
+            int[] TenK = new int[filePath_Value];
+            int[] HunderedK = new int[filePath_Value];
+            int[] OneM = new int[filePath_Value];
+            int[] OneT = new int[filePath_Value];
+            int[] TenM = new int[filePath_Value];
+            int[] HunderedM = new int[filePath_Value];
+            int[] OneMilyar = new int[filePath_Value];
+            int[] BUSD = new int[filePath_Value];
+            int Coinsbit_Coins = filePath_Value, Latoken_Coins = filePath_Value, P2pb2b_Coins = filePath_Value, Dextrade_Coins = filePath_Value;
+            string[] NOTE10 = new string[filePath_Value];
+            string[] NOTEINDOEX = new string[filePath_Value];
+            string[] NOTECOINSBIT = new string[filePath_Value];
+            string[] NOTELATOKEN = new string[filePath_Value];
+            string[] NOTEP2PB2B = new string[filePath_Value];
+            string[] NOTEDEXTRADE = new string[filePath_Value];
+            string[] NOTE10INDOEX = new string[filePath_Value];
+            string[] NOTE10COINSBIT = new string[filePath_Value];
+            string[] NOTE10LATOKEN = new string[filePath_Value];
+            string[] NOTE10P2PB2B = new string[filePath_Value];
+            string[] NOTE10DEXTRADE = new string[filePath_Value];
+
+            double COIN_VALUE_ICLB_ALIS = 0.00, COIN_VALUE_ICLB_SATIS = 0.00, COIN_VALUE_PANCAKE = 0.00, Final = 0.00;
+
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
+            mail.From = new MailAddress("khagan.dadashov@std.yildiz.edu.tr");
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("khagan.dadashov@std.yildiz.edu.tr", "Asasinprince95.,");
+            SmtpServer.EnableSsl = true;
+
+
+            string P;
+            bool fileExist;
+            string createText = "\n Pancake BITMART\n";
+            int k = 1, c = 1;
+            double USDT_SAT = 0.0, USDT_AL = 0.0;
+
+
+
+            int Second20 = 20;
+            int time10 = 20;
+            int delayVal2 = 300, delayVal = 600, delayValLatoken = 500;
+
+            double b;
+
+
+
+
+            By pancakeChoseCoinButton = By.ClassName("open-currency-select-button");
+            By pancakeTokenContrackInput = By.ClassName("cPWSLh");
+            By pancakeIUnderstandBox = By.Name("confirmed");
+            By pancakeInporButton = By.ClassName(".token-dismiss-button");
+            By pancakeInputUsdt = By.ClassName("token-amount-input");
+            By pancakeSwitchButton = By.ClassName("_1cvvxtw1"); //kdRdfA hqlCSL
+            By pancakeChangeButton = By.ClassName("_1cvvxtwp");//iLnzIl
+
+
+            int delayValPancake = 200;
+            string Key50 = "1";
+
+
+            /////// INDOEX BASLANGIC //////
+
+
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////                                   ESKI
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            Name[s] = "BRISE"; Contract[s] = "0x8FFf93E810a2eDaaFc326eDEE51071DA9d398E83"; ACTIVE[s] = s; s++;
+            Name[s] = "ITC"; Contract[s] = "0x146171eB1c1E32faEfCFdABC3c470b83197AdB60"; s++;
+            Name[s] = "LEVE"; Contract[s] = "0xb12418ae5284ac6215ee255b5cbc7d795e7016b5"; s++;
+            Name[s] = "POKERFI"; Contract[s] = "0x6bd30f2d5849a3c24042a5f012af753486ac8054"; ACTIVE[s] = s; s++;
+            Name[s] = "EGGY"; Contract[s] = "0xe19c0ed160f27f3A1a004C4BD8971281Fa8d31ED"; ACTIVE[s] = s; s++;
+            Name[s] = "BTCF"; Contract[s] = "0x1972633c2be10c4b977d3260fee1cff228bf2a5d"; NOTE10[s] = "FAVORI"; s++;
+            Name[s] = "BABYFLOKI"; Contract[s] = "0x71E80e96Af604Afc23Ca2AED4C1C7466DB6dd0c4"; ACTIVE[s] = s; s++;
+            Name[s] = "DVRS"; Contract[s] = "0xa155464b1566cdddf9782205602651b8b871b3d5"; s++;
+            Name[s] = "BCAT"; Contract[s] = "0x47a9b109cfb8f89d16e8b34036150ee112572435"; ACTIVE[s] = s; s++;
+            Name[s] = "BNBDOG"; Contract[s] = "0x52ABb09Ceb590f04c7d70bE9d6aA420177E94744"; s++;
+            Name[s] = "MINU"; Contract[s] = "0xf48f91df403976060cc05dbbf8a0901b09fdefd4"; ACTIVE[s] = s; s++;
+            Name[s] = "MKT"; Contract[s] = "0xF542aC438CF8Cd4477A1fc7aB88ADDA5426d55Ed"; NOTE10[s] = "FAVORI"; s++;
+            Name[s] = "PMG"; Contract[s] = "0x0733618Ab62eEEC815f2d1739b7a50bF9E74d8a2"; NOTE10[s] = "FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "PAYU"; Contract[s] = "0x9aeb2e6dd8d55e14292acfcfc4077e33106e4144"; NOTE10[s] = "FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "THING"; Contract[s] = "0xdc8c498cfc915dba55f0524fa9f5e57288110ab9"; ACTIVE[s] = s; s++;
+            Name[s] = "NLC"; Contract[s] = "0x5f320c3b8f82acfe8f2bb1c85d63aa66a7ff524f"; NOTE10[s] = " %13 + 1$ PANCAKE FEE + %13 COINSBIT YATIRMA UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "BABYCEO"; Contract[s] = "0x2E8620686b987f6664c9f194a1705aD63CA84d5e"; NOTE10[s] = "GONDERIM VE SWAP UCRETI 1.5$ + %10 +%10 "; s++;
+            Name[s] = "BFLOKI"; Contract[s] = "0x308d6B4bDeD91f99b58bdaAfCC1137Fb4cFd4AB2"; NOTE10[s] = "FAVORI %6 GONDERIM UCRETI SADECE "; s++;
+            Name[s] = "BLACK"; Contract[s] = "0xa2f1a99a74d4cc072b810b1696239e4dd76221c4"; ACTIVE[s] = s; s++;
+            Name[s] = "CHEESE"; NOTE10[s] = "GONDERIM VE SWAP UCRETI 1$ + %11 +%11 "; Contract[s] = "0x08aed8578daabf12d48031fa5d9727e4afd42dee"; s++;
+            Name[s] = "ECOIN"; Contract[s] = "0x7d38315b92d0e7a85b35b2b7fe969b25935619d7"; NOTE10[s] = "COINSBITDE VAR %8 + %8 + 2$ GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "ESHIB"; NOTE10[s] = "%6 + %6 + 1$ kesinti "; Contract[s] = "0xffaa85705ae216363e4e843b67ff3c238fcf0de2"; s++;
+            Name[s] = "FWC"; Contract[s] = "0x6D3a160B86eDcD46D8F9bBa25c2F88ccCADe19fc"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "GRV"; NOTE10[s] = "IBC DE VAR "; Contract[s] = "0xf33893de6eb6ae9a67442e066ae9abd228f5290c"; ACTIVE[s] = s; s++;
+            Name[s] = "HKP"; Contract[s] = "0x9530dcc538ac91a6e63900b6622c6c11980bf796"; NOTE10[s] = "%3 + %3 Pancake kesintisi sadece"; s++;
+            Name[s] = "IBS"; Contract[s] = "0x57d2a45653b329fac354b04cead92c4db71cf09f"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "KAZ"; Contract[s] = "0x3c38ab82f9e008fd03ad9c4ceddfaf9f509d2fc7"; s++;
+            Name[s] = "KCAKE"; Contract[s] = "0xc22e8114818a918260662375450e19ac73d32852"; ACTIVE[s] = s; s++;
+            Name[s] = "KIMJU"; Contract[s] = "0x9f9bec61586996f9c63bc26c9a9b179458ed30be"; NOTE10[s] = " %1 + %1 PANCAKE ve INDOEX FEE"; s++;
+            Name[s] = "KUR"; Contract[s] = "0xa6fb39d69b09ecdc1a8b5f829df11a40b7742603"; NOTE10[s] = " %3 + 1$ PANCAKE FEE ONLY"; s++;
+            Name[s] = "LGBT"; Contract[s] = "0x0b1e1e818433abcdb0acb878c3d3ec95a8534527"; NOTE10[s] = " %12 + %12 + 1$ PANCAKE FEE"; s++;
+            Name[s] = "LTRBT"; NOTE10[s] = "FAVORI 3$ + %9 SADECE PANCAKE FEE "; Contract[s] = "0x6C46422A0f7dbbAD9BEC3BbBC1189bfAf9794B05"; ACTIVE[s] = s; s++;
+            Name[s] = "ORT"; Contract[s] = "0x9e711221b34a2d4b8f552bd5f4a6c4e7934920f7"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "PIT"; NOTE10[s] = "PIT %5 + %5"; Contract[s] = "0xA57ac35CE91Ee92CaEfAA8dc04140C8e232c2E50"; ACTIVE[s] = s; s++;
+            Name[s] = "SWEEP"; Contract[s] = "0x09c704c1EB9245Af48f058878e72129557a10F04"; NOTE10[s] = "%9 + 1.5$ Pancake kesintisi sadece"; ACTIVE[s] = s; s++;
+            Name[s] = "TND"; ; Contract[s] = "0x07a3554899d97a087bda931dd5224b3b7435e568"; NOTE10[s] = "%5 Pancake fee only"; s++;
+
+            /////// COINSBIT BASLANGIC //////
+            Coinsbit_Coins = s;
+
+            Name[s] = "FLOKITA"; Contract[s] = "0xDC8C8221B8e27DFDA87A6D56DC5899A65087b6f4"; ACTIVE[s] = s; s++;
+            Name[s] = "CLEG"; Contract[s] = "0x4027d91ecd3140e53ae743d657549adfeebb27ab"; ACTIVE[s] = s; s++;
+            Name[s] = "IRBIS"; Contract[s] = "0xbFC83596b4DA935a0d89b6FF49f46b3ef563FAFd"; ACTIVE[s] = s; s++;
+            Name[s] = "GTAI"; Contract[s] = "0x003d87d02A2A01E9E8a20f507C83E15DD83A33d1"; ACTIVE[s] = s; s++;
+            Name[s] = "MGC"; Contract[s] = "0xbb73BB2505AC4643d5C0a99c2A1F34B3DfD09D11"; s++;
+            Name[s] = "NewG"; Contract[s] = "0x4296f7abE47B9BF5EeA4DEa813C7d59F0401363A"; s++;
+            Name[s] = "MRSH"; Contract[s] = "0xB15A34DB9c3Ae3f88B3C7d4C16366cD12550318c"; s++;
+            Name[s] = "JTT"; Contract[s] = "0xcdB3D3642FB4d48D2B5E4fb4a014448A2761C063"; ACTIVE[s] = s; s++;
+            Name[s] = "RBIT"; Contract[s] = "0xF9F2d7205ee903B003038877dEf16bEF178B3284"; ACTIVE[s] = s; s++;
+            Name[s] = "XV"; Contract[s] = "0x34dce75a3d1910cc9d188aa5a75fb9addcae0fcc"; NOTE10[s] = "%10 pancake fee ONLY "; ACTIVE[s] = s; s++;
+            Name[s] = "AITECH"; Contract[s] = "0x2d060ef4d6bf7f9e5edde373ab735513c0e4f944"; ACTIVE[s] = s; s++;
+            Name[s] = "DONA"; Contract[s] = "0x229C32460c6BeaC113e720ac4a7495b57F53F7Cf"; ACTIVE[s] = s; s++;
+            Name[s] = "CGPT"; Contract[s] = "0x9840652DC04fb9db2C43853633f0F62BE6f00f98"; ACTIVE[s] = s; s++;
+            Name[s] = "MIR"; Contract[s] = "0x2134f3A7b18aE4161fBaB6EcCCa7497E17a6777b"; ACTIVE[s] = s; s++;
+            Name[s] = "UPC"; Contract[s] = "0x43AFA4DcF4EADe63031a286E4228ccCe4c36C842"; NOTE10[s] = "Only pancake buying can not selling"; s++;
+            Name[s] = "ICLICK"; Contract[s] = "0xc8C06a58E4ad7c01b9bb5Af6C76a7a1CfEBd0319"; NOTE10[s] = "FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "CRYS"; Contract[s] = "0x01C0bD183e7027b421BFF30946f54Bf297713027"; s++;
+            Name[s] = "EVDC"; Contract[s] = "0x93749e69560efe1ad6661903e47df538492c50a4"; NOTE10[s] = "FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "SHIFO"; Contract[s] = "0x61d9f522B332d1F2ab25d5803371E5EaC6cf8808"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "KAPE"; Contract[s] = "0xC62e15F6b3026Be54D89223059788C76dD15d7f7"; NOTE10[s] = "FAVORI"; s++;
+            Name[s] = "YES"; Contract[s] = "0xB9d35811424600fa9E8cD62A0471fBd025131cb8"; ACTIVE[s] = s; s++;
+            Name[s] = "IBSC"; Contract[s] = "0x99ce9D59568941A623a46e5598515B06862d13eC"; s++;
+            Name[s] = "NNN"; Contract[s] = "0x5D5c5c1d14FaF8Ff704295b2F502dAA9D06799a0"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "BRISE"; Contract[s] = "0x8FFf93E810a2eDaaFc326eDEE51071DA9d398E83"; ACTIVE[s] = s; s++;
+            Name[s] = "GRCGOLD"; Contract[s] = "0x8e4653Ef0f8Ce731653192bb642D5347Ccec2c6a"; NOTE10[s] = "%10 pancake fee ONLY "; s++;
+            Name[s] = "IVIP"; Contract[s] = "0xbdC87A65e0b6bfB631847B7dE815D2B07DEC8ee7"; s++;
+            Name[s] = "PDOGE"; Contract[s] = "0x8DFb7d4948049269fD68419b0389609B2BDa398B"; NOTE10[s] = "%7 + %7 pancake fee + %7 Coinsbit yatırma ücreti "; s++;
+            Name[s] = "PNB"; Contract[s] = "0xf5BDe7Eb378661F04C841B22bA057326B0370153"; s++;
+            Name[s] = "MTHN"; Contract[s] = "0xcC0D48a5530Cca0481105cCD61A14C495A51c901"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; s++;
+            Name[s] = "CIRI"; Contract[s] = "0x3Bb8B75ae92B16A6428962dd891A07974422A2A3"; s++;
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////                                   ESKI
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            Name[s] = "1XFOOT"; Contract[s] = "0xA6572531585dbdB8bAc51422C7Be9d16c3C36BAA"; NOTE10[s] = "FAVORI 1$ GONDERIM UCRETI "; s++;
+            Name[s] = "AIRT"; Contract[s] = "0x016CF83732f1468150D87dCC5BdF67730B3934D3"; ACTIVE[s] = s; s++;
+            Name[s] = "ANCHOR"; Contract[s] = "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F"; ACTIVE[s] = s; s++;
+            Name[s] = "AOG"; Contract[s] = "0xB32D4817908F001C2A53c15bFF8c14D8813109Be"; ACTIVE[s] = s; s++;
+            Name[s] = "ARMA"; Contract[s] = "0xe405B8148d731E4E1117e00542264daC5375BC97"; NOTE10[s] = "FAVORI"; s++;
+            Name[s] = "BAM"; Contract[s] = "0xF55c1eC4106f2F644df9415b67f3703Dad6eEAf8"; s++;
+            Name[s] = "BFG"; Contract[s] = "0xBb46693eBbEa1aC2070E59B4D043b47e2e095f86"; NOTE10[s] = "Favori 1$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "BFT"; Contract[s] = "0x4b87F578d6FaBf381f43bd2197fBB2A877da6ef8"; NOTE10[s] = "%4 + %4 + 2$ SWAP + GONDERIM UCRETI 2.000.000 kademeli satis ve transfer"; ACTIVE[s] = s; s++;
+            Name[s] = "BLACK"; Contract[s] = "0xa2F1a99a74d4cc072B810b1696239e4Dd76221C4"; NOTE10[s] = "INDOEXDE VAR"; s++;
+            Name[s] = "BUUN"; Contract[s] = "0x15B09CA8a1EF990C726d1FD82939a7CF9a48d5c8"; s++;
+            Name[s] = "CBP"; Contract[s] = "0x15d1dafBcC97F606bd02120d170fdAc33B1a4a86"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "CCAKE"; Contract[s] = "0xc7091AA18598b87588e37501b6Ce865263CD67Ce"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "CHT"; Contract[s] = "0x275b686A5c7312E50299b1c64507c90eE8a381A0"; NOTE10[s] = "%10 + %6 + 0.5$ GONDERIM UCRETI "; s++;
+            Name[s] = "CMCX"; Contract[s] = "0xb2343143f814639c9b1f42961C698247171dF34a"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "DCS"; Contract[s] = "0x4565288B14D84507CA2020A7595f91fF16304e55"; s++;
+            Name[s] = "DOGE2"; Contract[s] = "0x3780E00D4c60887AF38345cCd44f7617dBFB10A0"; NOTE10[s] = "COINSBIT % 10 DEPOSITE UCRETI + %2 + %2 + 0.7$ PANCAKE FEE LATOKEN VAR"; ACTIVE[s] = s; s++;
+            Name[s] = "DOGEX"; Contract[s] = "0x4ddBa7c715072D797e28f79fd8Afc0942498E9A3"; NOTE10[s] = "%1 + 3$ GONDERIM UCRETI "; s++;
+            Name[s] = "ECOIN"; Contract[s] = "0x7d38315b92d0e7a85b35b2b7fe969b25935619d7"; NOTE10[s] = "%8 + %8 + 1$ SWAP + GONDERIM UCRETI INDOEXDE VAR"; s++;
+            Name[s] = "ESHK"; Contract[s] = "0xbcA671410BCFfd9e63F73e1e8640f6c7c388a3c9"; NOTE10[s] = "ESHK FAVORI HER SEFERINDE BAK 1$ SADECE GONDERIM UCRETI"; s++;
+            Name[s] = "EXMOC"; Contract[s] = "0x2f53C0E79646c414FcF5aACAf7C8310b074C40A3"; NOTE10[s] = "Favori 1$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "FFT1"; Contract[s] = "0x93cFb9fd822F6843778DB04a28Dc5f3Cf3E41D81"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "GBK"; Contract[s] = "0xdA0638EA374c4c5bF2914E6F4D5B2335dEb8D80D"; NOTE10[s] = "%14 + %14 + 2$ FEES cekim oluyor fakat problemli"; s++;
+            Name[s] = "GIVE"; Contract[s] = "0x52e723807514AC885e5b6a0C17daAf4C54C88c01"; NOTE10[s] = "Favori 0.6$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "IBS"; Contract[s] = "0x57D2A45653B329FAc354B04cEAd92C4db71cF09f"; NOTE10[s] = "Favori 0.6$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "IDTT"; Contract[s] = "0x6fB1E018f107d3352506c23777e4cd62e063584a"; s++;
+            Name[s] = "IRENA"; Contract[s] = "0x9eeB6c5ff183E6001c65a12D70026b900AE76781"; NOTE10[s] = " 1$ GONDERIM UCRETI +%8 KESINTI SWAP VE YATIRMADAN"; ACTIVE[s] = s; s++;
+            Name[s] = "JADE"; Contract[s] = "0x330F4fe5ef44B4d0742fE8BED8ca5E29359870DF"; NOTE10[s] = "FAVORI 1$ GONDERIM UCRETI "; ACTIVE[s] = s; s++;
+            Name[s] = "KAMPAY"; Contract[s] = "0x8E984e03ab35795C60242c902ECe2450242C90e9"; NOTE10[s] = "Favori 0.7$ swap ve gonderim ucreti"; ACTIVE[s] = s; s++;
+            Name[s] = "KLASS"; Contract[s] = "0xc4Bb4aA9682069CC0b6b76A8d035dc8091F59D56"; NOTE10[s] = "%10 + %10 + 3$ FEES"; s++;
+            Name[s] = "LBNB"; Contract[s] = "0x9dD6626e3dC415EB5DcBbeEB19bC345BfFe388a2"; s++;
+            Name[s] = "Mmpro"; Contract[s] = "0x6067490d05F3cF2fdFFC0e353b1f5Fd6E5CCDF70"; ACTIVE[s] = s; s++;
+            Name[s] = "MSPC"; Contract[s] = "0xbA509bdb71a29301860800e13867B59B461747Af"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "MUSO"; Contract[s] = "0xC08E10b7Eb0736368A0B92EE7a140eC8C63A2dd1"; NOTE10[s] = " %10 + 1$ FEE "; s++;
+            Name[s] = "N1CE"; Contract[s] = "0xC14dF1E2fFf3708816495e7364Ff274aCEEcAd91"; NOTE10[s] = "FAVORI 0.6$ GONDERIM UCRETI "; s++;
+            Name[s] = "NASSR"; Contract[s] = "0x0Fc85D9F186A01A8b315cF23Dcf1a0CbDF1A9ccB"; s++;
+            Name[s] = "NEXTSHIB"; Contract[s] = "0x5D10780da28E5B225A0C6a1BeD230a04cF96ece3"; NOTE10[s] = "%5 + %5 + 0.5$ GONDERIM UCRETI "; s++;
+            Name[s] = "NLC"; Contract[s] = "0x5F320C3b8f82AcFe8f2Bb1C85D63aA66A7FF524f"; s++;
+            Name[s] = "OCCOIN"; Contract[s] = "0x5E8bCb23D631c38809Eec607f30057d8135700cA"; NOTE10[s] = "%13 Pancake fee only"; s++;
+            Name[s] = "OCTA"; Contract[s] = "0xBE347c99BE35aD851D34f0506aFE33f5f657CE5B"; s++;
+            Name[s] = "OHO"; Contract[s] = "0x0576FaD3B0df2722d6bA73E0d37F0658f8cf10cD"; NOTE10[s] = "%50 PANCAKE FEE  "; s++;
+            Name[s] = "OLIVER"; Contract[s] = "0x35406336AE6b154e748abF8DB3950e1BA797e2D2"; NOTE10[s] = "COINSBIT %15 + %15 + %15 = %45 DEPOSITE UCRETI + 1.5$ cekim ucreti"; s++;
+            Name[s] = "OLOID"; Contract[s] = "0x0F6266A9e9214ea129D4A001E9541d643a34C772"; ACTIVE[s] = s; s++;
+            Name[s] = "PALM"; Contract[s] = "0xF85BE0902a16fb87D447021d6e4517b38a15087d"; NOTE10[s] = "FAVORI 0.5$ GONDERIM UCRETI "; ACTIVE[s] = s; s++;
+            Name[s] = "PINO"; Contract[s] = "0x6B681fc5BbA4a85F50E6f0A314A4D5452a9B3384"; NOTE10[s] = "FAVORI 1$ SWAP + GONDERIM UCRETI "; s++;
+            Name[s] = "PINU"; Contract[s] = "0xF03E02AcbC5eb22de027eA4F59235966F5810D4f"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; s++;
+            Name[s] = "Pulse"; Contract[s] = "0x7704d0EaD6F74E625d7371b079D8b2475bc852d4"; NOTE10[s] = "%1 + %1 + 0.5$ SWAP + GONDERIM UCRETI ONLY"; ACTIVE[s] = s; s++;
+            Name[s] = "QG"; Contract[s] = "0xFB8Bf58B23e3CbCbaBB169cfC704Ebb2878Cb48A"; NOTE10[s] = " %5 + %5 + 1$ PANCAKE FEE"; s++;
+            Name[s] = "REGENT"; Contract[s] = "0x4fFa143Ce16A24215e8dF96c0CEF5677a7B91EE4"; NOTE10[s] = "D/W KAPALI Favori 1$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "RFX"; Contract[s] = "0xB44c63a09adF51f5E62CC7B63628b1B789941FA0"; NOTE10[s] = "%4 + %4 + 1$ GONDERIM UCRETI "; ACTIVE[s] = s; s++;
+            Name[s] = "RGOLD"; Contract[s] = "0x0496CcD13c9848f9c7d1507D1dd86a360B51b596"; NOTE10[s] = "Favori 0.6$ SWAP + GONDERIM UCRETI"; s++;
+            Name[s] = "SHAN"; Contract[s] = "0x84CFc0427147026368C2aaC4f502d98aaC47eB48"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "STATOKEN"; Contract[s] = "0x4D1E90aB966ae26c778b2f9f365aA40abB13f53C"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "SWP"; Contract[s] = "0x9F8a75436e7E808F3Fb348182E0ea42d2dd467Cd"; NOTE10[s] = "FAVORI 0.5$ GONDERIM UCRETI "; s++;
+            Name[s] = "SWT"; Contract[s] = "0xb1A5e3068837FCff1F7F2abF592a5dE7a20b2a40"; NOTE10[s] = "FAVORI 0.5$ GONDERIM UCRETI "; ACTIVE[s] = s; s++;
+            Name[s] = "TGR"; Contract[s] = "0xd9780513292477C4039dFdA1cfCD89Ff111e9DA5"; NOTE10[s] = "Favori 0.5$ SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+            Name[s] = "TMAC"; Contract[s] = "0x6421282c7f14670D738F4651311C5a1286e46484"; s++;
+            Name[s] = "TYV"; Contract[s] = "0x90a8BbF934Fde975555632aDdcb258E895C69de1"; NOTE10[s] = "FAVORI 0.5$ GONDERIM UCRETI "; s++;
+            Name[s] = "UTC"; Contract[s] = "0x52171FFA4ceDa60ff9795e1F111adB14c3d7025e"; s++;
+            Name[s] = "VIZSLASWAP"; Contract[s] = "0xaDAaE082237cB1772c9e079dB95c117E6Dd0C5aF"; NOTE10[s] = " %6 + %6 + 1$ FEE "; ACTIVE[s] = s; s++;
+            Name[s] = "VM"; Contract[s] = "0xeDA2E97F347C1C4964C3De712a992A38cAa5cf64"; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "XCA"; Contract[s] = "0xBd20F9B0DbeED33FC4436F0aE7a34eedEFdA2878"; s++;
+            Name[s] = "XF"; Contract[s] = "0x1a591BC628458A76D0553A8B8C57bf32d3ac150F"; NOTE10[s] = "%6 Pancake + 0.7$ swap ücreti ONLY"; s++;
+            Name[s] = "XPX"; Contract[s] = "0xa3754E8f5f9Ae5a4ba2993dfaFAE8E215fd472f6"; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "YOLLLO"; Contract[s] = "0x68569056c9D8E93201270a22588632a138Fca324"; NOTE10[s] = "Favori 0.5$ GONDERIM UCRETI\n Farkli borsadada mevcut"; s++;
+            Name[s] = "ZAR"; Contract[s] = "0x310E6B2fAf62380956a90b84b7f5d84E7dccafD7"; NOTE10[s] = " %15 + %15 = %30 DEPOSITE UCRETI + 0.6$ cekim ucreti"; s++;
+            Name[s] = "ZENITH"; Contract[s] = "0x57C81885FaAd67fC4dE892102f6FEAd3b9215f6b"; NOTE10[s] = " %10 SWAP + GONDERIM UCRETI"; ACTIVE[s] = s; s++;
+
+
+
+            ///////////////////// MUSDT mUSDT 
+            ///
+
+            Name[s] = "FOAT"; Contract[s] = "0x9100E076Cb8F2f5c526c3170AC98839Ea22Bb388"; HunderedK[s] = s; NOTE10[s] = "%6 pancake fee + %12 coinsbit yatirma ucreti  "; s++;
+            Name[s] = "Rtime"; Contract[s] = "0xcA39370ab6cf858343CEA824a1c784964e5bf247"; HunderedK[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "BNYTA"; Contract[s] = "0x6957272A211beB1829d4F4cb483741386b881b18"; HunderedK[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "ZORO"; Contract[s] = "0x05ad901cf196cbDCEaB3F8e602a47AAdB1a2e69d"; NOTE10[s] = "%13 pancake fee only"; HunderedK[s] = s; s++;
+            Name[s] = "RET"; Contract[s] = "0x10b9dd394467f2CFbc769e07E88dC7e2c41B0965"; HunderedK[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "BLAST"; Contract[s] = "0xDdC0dBd7dC799ae53A98a60b54999cb6eBb3Abf0"; HunderedK[s] = s; s++;
+            Name[s] = "PHENIX"; Contract[s] = "0xc81d5e0ba9fD68911967313B1e00240bb6B7315b"; HunderedK[s] = s; s++;
+            Name[s] = "EShib"; Contract[s] = "0xFfaA85705aE216363e4e843B67fF3C238Fcf0de2"; HunderedK[s] = s; s++;
+            Name[s] = "PAYU"; Contract[s] = "0x9AeB2E6DD8d55E14292ACFCFC4077e33106e4144"; HunderedK[s] = s; s++;
+            Name[s] = "MYTH"; Contract[s] = "0x73a2a0FC691819E82aA4b3ADdAC71252933400E1"; HunderedK[s] = s; s++;
+            Name[s] = "EZI"; Contract[s] = "0xCa0C1c12466A57b26850b05a0BA2Fb39F9763A0c"; HunderedK[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "$LGBT"; Contract[s] = "0x0B1E1e818433abcDB0acb878c3d3eC95A8534527"; NOTE10[s] = " %12 + %12 + 1$ PANCAKE FEE"; HunderedK[s] = s; s++;
+            Name[s] = "TEND"; Contract[s] = "0x222f737285D0B60d8D4f27fA22cE8884c9F119F8"; HunderedK[s] = s; s++;
+            Name[s] = "XPRO"; Contract[s] = "0x7C1b2f618569789941B88680966333F3e8FEdc61"; HunderedK[s] = s; NOTE10[s] = " %5 + %5 + 1$ PANCAKE FEE"; s++;
+
+
+
+
+
+            /////// DEXTRADE BASLANGIC //////
+
+            Dextrade_Coins = s;
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////                                   ESKI
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            Name[s] = "KUKU"; Contract[s] = "0x84Fd7CC4Cd689fC021eE3D00759B6D255269D538"; ACTIVE[s] = s; s++;
+            Name[s] = "PTTN"; Contract[s] = "0xB4052e58a69aAcA683E7999c7981F4C4c324d917"; s++;
+            Name[s] = "SBT"; Contract[s] = "0xD21642383a5cdF8C61FED6121a2084C1658E35B1"; s++;
+            Name[s] = "HAM"; Contract[s] = "0x679D5b2d94f454c950d683D159b87aa8eae37C9e"; s++;
+            Name[s] = "HOW"; Contract[s] = "0xdAa64420e769fae36CCaA78e26024FE9f583e9D8"; s++;
+            Name[s] = "STK"; Contract[s] = "0xA35b5C783117e107644056F5D39fAa468e9d8D47"; ACTIVE[s] = s; s++;
+            Name[s] = "HD"; Contract[s] = "0xE3791bab5Ca90BCdC7c287f6d7bB0ab77EB1fcdf"; s++;
+            Name[s] = "CRICKETS"; Contract[s] = "0xad4C689Dcb380A94F7e13400Bd03FD998CF7aF7a"; s++;
+            Name[s] = "ODK"; Contract[s] = "0xF83E19555181757D3721A03777A4aff06EE44502"; s++;
+            Name[s] = "$NTDM"; Contract[s] = "0x768c4FE5734f696cf06bb9aD4fE5D8671eF2a337"; s++;
+            Name[s] = "BNOU"; Contract[s] = "0x4f47f066d839634bf4e992021a65d209B383EE1e"; s++;
+            Name[s] = "RHINE"; Contract[s] = "0x8d1437a21f055B88C29a80EE65C400de8959525b"; s++;
+            Name[s] = "FLOKITA"; Contract[s] = "0xDC8C8221B8e27DFDA87A6D56DC5899A65087b6f4"; ACTIVE[s] = s; s++;
+            Name[s] = "SQD"; Contract[s] = "0xF8F1CecC95a3441725243350172269299AE133b8"; NOTE10[s] = "%6 Pancake fee only"; ACTIVE[s] = s; s++;
+            Name[s] = "MLT"; Contract[s] = "0x5851Ca8d980ecb041CF4202Cf43a7CbFa593dcD0"; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "CUFFY"; Contract[s] = "0x9b0b8a8BCe696A9d9A69260217509C58a9532176"; s++;
+            Name[s] = "PMT"; Contract[s] = "0x68Ae2F202799be2008c89e2100257e66F77DA1f3"; ACTIVE[s] = s; s++;
+            Name[s] = "EXIT"; Contract[s] = "0xdEbd6e2da378784A69Dc6Ec99Fe254223b312287"; s++;
+            Name[s] = "TWT"; Contract[s] = "0x4B0F1812e5Df2A09796481Ff14017e6005508003"; ACTIVE[s] = s; s++;
+            Name[s] = "CBE"; Contract[s] = "0xd16Cb89F621820bC19DAE1C29c9DB6D22813b01D"; ACTIVE[s] = s; s++;
+            Name[s] = "BNBDOG"; Contract[s] = "0x52ABb09Ceb590f04c7d70bE9d6aA420177E94744"; s++;
+            Name[s] = "AITECH"; Contract[s] = "0x2D060Ef4d6BF7f9e5edDe373Ab735513c0e4F944"; s++;
+            Name[s] = "OPY"; Contract[s] = "0x7a656f418afc09eaF4AE8b75EAe74fE09E7A7706"; NOTE10[s] = " FAVORI "; ACTIVE[s] = s; s++;
+            Name[s] = "xAI"; Contract[s] = "0x93e0Af4Bd7cd02f067b534800eB29634Ef3eFfea"; s++;
+            Name[s] = "GROK"; Contract[s] = "0x2e53414853f058A9BC14E052431008483bD85B4c"; ACTIVE[s] = s; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "CGPT"; Contract[s] = "0x9840652DC04fb9db2C43853633f0F62BE6f00f98"; s++;
+            Name[s] = "Rtime"; Contract[s] = "0xcA39370ab6cf858343CEA824a1c784964e5bf247"; s++;
+            Name[s] = "HYDT"; Contract[s] = "0x9810512Be701801954449408966c630595D0cD51"; ACTIVE[s] = s; s++;
+            Name[s] = "MJCT"; Contract[s] = "0x9f2C886E49b6851f8488F8818DDBADFd16B13e7a"; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "ARTDRAW"; Contract[s] = "0xb7227aC4d598DB50451E6F22Bd3CDCbe53417E22"; s++;
+            Name[s] = "AVITA"; Contract[s] = "0x6Af7600fFdE262A9F6EbC10eC2D8f6A6Bc416Eeb"; NOTE10[s] = "%7 Pancake fee only"; s++;
+            Name[s] = "NNN"; Contract[s] = "0x5D5c5c1d14FaF8Ff704295b2F502dAA9D06799a0"; s++;
+            Name[s] = "BRISE"; Contract[s] = "0x8FFf93E810a2eDaaFc326eDEE51071DA9d398E83"; s++;
+            Name[s] = "MTHN"; Contract[s] = "0xcC0D48a5530Cca0481105cCD61A14C495A51c901"; s++;
+            Name[s] = "AFIT"; Contract[s] = "0x4516Bb582F59bEfcbC945D8c2DaC63ef21fba9f6"; NOTE10[s] = "%7 Pancake fee only"; s++;
+            Name[s] = "ANGEL"; Contract[s] = "0x122fb46Dc6Db2143BCe8dd8368689599FD95e72d"; s++;
+            Name[s] = "BDOT"; Contract[s] = "0x71d755bb024438Bf4E20337d371CAa0C55C65522"; s++;
+            Name[s] = "BEFX"; Contract[s] = "0x75B2fdd95418e093fCA7DB858B36549e5e412076"; ACTIVE[s] = s; s++;
+            Name[s] = "BLI"; Contract[s] = "0x42BE29132756ddd6e8B3B94584cA0bAb20545EEc"; s++;
+            Name[s] = "CADINU"; Contract[s] = "0x76e112203eF59D445452ef7556386dD2DF3Ed914"; ACTIVE[s] = s; s++;
+            Name[s] = "CBL"; Contract[s] = "0x5DB4A5616c21F75E71D4399F8e71D621e8de3fdb"; s++;
+            Name[s] = "DGT"; Contract[s] = "0x90fe761C696066672190CC62A84a2a41bC630A1B"; s++;
+            Name[s] = "EDUX"; Contract[s] = "0x2B1B730c997D81dB2e792b47D0bC42A64ee6aA55"; NOTE10[s] = " FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "FAN"; Contract[s] = "0xB0228Eb6c0b49f8265e6E161c3a987eeD7471F42"; s++;
+            Name[s] = "FLOKICEO"; Contract[s] = "0x45289007706E7Ee7B42b1fA506661d97740Edfb4"; ACTIVE[s] = s; s++;
+            Name[s] = "FRTC"; Contract[s] = "0x88B985007d714d1578BCcdEc2303212c14946cdC"; NOTE10[s] = " %5 PANCAKE FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "FWC"; Contract[s] = "0x6D3a160B86eDcD46D8F9bBa25c2F88ccCADe19fc"; s++;
+            Name[s] = "GENI"; Contract[s] = "0x444444444444C1a66F394025Ac839A535246FCc8"; NOTE10[s] = "Favori"; ACTIVE[s] = s; s++;
+            Name[s] = "GHD"; Contract[s] = "0xfDFD27aE39cebefDBaAc8615F18aa68DDD0F15f5"; ACTIVE[s] = s; s++;
+            Name[s] = "GPAY"; Contract[s] = "0xaA3ECC6D3e77Dd33cF259859b0cA58CA93A07A9c"; s++;
+            Name[s] = "GSPV2"; Contract[s] = "0xFDe889726DabdEeb8f05060548CF7Adb9B35fd3B"; s++;
+            Name[s] = "OHO"; Contract[s] = "0x0576FaD3B0df2722d6bA73E0d37F0658f8cf10cD"; s++;
+            Name[s] = "ORT"; Contract[s] = "0x9E711221B34A2d4B8F552BD5f4A6C4e7934920f7"; s++;
+            Name[s] = "PEX"; Contract[s] = "0x6a0b66710567b6beb81A71F7e9466450a91a384b"; ACTIVE[s] = s; s++;
+            Name[s] = "POWA"; Contract[s] = "0x5FDa925294F9e5B31b7c0e81Bad6BAD5b5E792eE"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; s++;
+            Name[s] = "PST"; Contract[s] = "0x12F5b3aea951eBD313ea802a1DBce2Be9369Cb93"; s++;
+            Name[s] = "PURRX"; Contract[s] = "0xd4CAdc39c1294a6Ce118Aa08dcEd32efADac4A7f"; s++;
+            Name[s] = "RET"; Contract[s] = "0x10b9dd394467f2CFbc769e07E88dC7e2c41B0965"; NOTE10[s] = "%3 Pancake fee only"; s++;
+            Name[s] = "SAFEHAMSTERS"; Contract[s] = "0xa016F295A5957cB80D03d8E5464A429007555124"; NOTE10[s] = "%10 + %10 Pancake fee only"; s++;
+            Name[s] = "SHINT"; Contract[s] = "0xca2f9ce9967C1717F5a2539D525a9a8BCA3dEa3b"; NOTE10[s] = "Favori"; s++;
+            Name[s] = "SHOP"; Contract[s] = "0x9bb2b75250FC34e16D9503c04781C718B2d467c8"; s++;
+            Name[s] = "SMC"; Contract[s] = "0x4d00DDCC526c14Fd353131F289b1e62C856E9737"; s++;
+            Name[s] = "STATOKEN"; Contract[s] = "0x4D1E90aB966ae26c778b2f9f365aA40abB13f53C"; s++;
+            Name[s] = "STRM"; Contract[s] = "0xC598275452fA319d75ee5f176FD3B8384925b425"; ACTIVE[s] = s; s++;
+            Name[s] = "TYCO"; Contract[s] = "0x9CAa8B8B9F6dd594870C421b320D07f5Cfe24A6f"; NOTE10[s] = "Favori"; s++;
+            Name[s] = "VEGE"; Contract[s] = "0xDa48C3A0cc7eC60b19B725dc539BC67fC3EbA6D9"; s++;
+
+
+
+
+            /////// P2PB2B BASLANGIC //////
+
+            P2pb2b_Coins = s;
+
+
+            Name[s] = "MZK"; Contract[s] = "0xCe379bAD99f287E1eacB1bF80F3670011D2B2981"; s++;
+            Name[s] = "BCCOIN"; Contract[s] = "0x2940566Eb50F15129238f4Dc599ADC4F742D7d8E"; ACTIVE[s] = s; s++;
+            Name[s] = "SHIBK"; Contract[s] = "0x314bc6c98A28Bd0580651233c351F2994Cc12645"; s++;
+            Name[s] = "OUCH"; Contract[s] = "0x5B427Dbf83041BD006C40E4C34C7b196d8B3947F"; s++;
+            Name[s] = "CNFT"; Contract[s] = "0xA3D2AE2D6684178A8565231465C3Feebb05880c1"; ACTIVE[s] = s; s++;
+            Name[s] = "GPAWS"; Contract[s] = "0xf025d53bBf98B6b681f7BAe9A9083194163E1214"; s++;
+            Name[s] = "GIA"; Contract[s] = "0x9CAE159A21a278E0a98Ee42d197aE87Cbc7165B3"; ACTIVE[s] = s; s++;
+            Name[s] = "ONS"; Contract[s] = "0x57FC32015c09eF510584648b89BfE42642CD2d76"; NOTE10[s] = " FAVORI"; s++;
+            Name[s] = "BXB"; Contract[s] = "0x001a185f0A605Cd18A6C5A7059D928383B36d5cC"; s++;
+            Name[s] = "RMC"; Contract[s] = "0x40D080d51c251F81c368f805bC607EB1624A144c"; s++;
+            Name[s] = "BTOP"; Contract[s] = "0xf78A2e1824638d09571172368bbe1d8D399893Ab"; NOTE10[s] = " %8 + 1$ PANCAKE FEE ONLY"; ACTIVE[s] = s; s++;
+            Name[s] = "GTAI"; Contract[s] = "0x003d87d02A2A01E9E8a20f507C83E15DD83A33d1"; s++;
+            Name[s] = "AITECH"; Contract[s] = "0x2D060Ef4d6BF7f9e5edDe373Ab735513c0e4F944"; s++;
+            Name[s] = "PMG"; Contract[s] = "0x0733618Ab62eEEC815f2d1739b7a50bF9E74d8a2"; s++;
+            Name[s] = "AIT"; Contract[s] = "0x5F113F7ef20Ff111FD130e83D8e97Fd1E0E2518F"; ACTIVE[s] = s; s++;
+            Name[s] = "REV"; Contract[s] = "0x066e02B480CFBcbCeC79A8A68CE1bfc67B46a6d2"; NOTE10[s] = " PANCAKE BUYING ONLY CAN NOT SELLING"; s++;
+            Name[s] = "MINU"; Contract[s] = "0xf48f91df403976060cC05dBbf8A0901b09fdeFd4"; s++;
+            Name[s] = "BULLT"; Contract[s] = "0x2243267F01eFc579871ECA055027e5214BBe5F14"; NOTE10[s] = " %4 + 1$ PANCAKE FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "MYRODRAG"; Contract[s] = "0x65B95956Ed45AB83B95669f0C7473753252599D9"; NOTE10[s] = " %6 + 1$ PANCAKE FEE"; s++;
+            Name[s] = "XPE"; Contract[s] = "0x88691f292b76Bf4D2CAa5678A54515fAE77c33AF"; ACTIVE[s] = s; s++;
+            Name[s] = "PATMAT"; Contract[s] = "0x96e2aeBacA50580662071ec7B6122862D5053c47"; s++;
+            Name[s] = "CAIR"; Contract[s] = "0x48A8Ba1754FE84E2f9dfA97982e524F18E5b4Bd3"; NOTE10[s] = " FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "MTY"; Contract[s] = "0xDe27C2c13d1eEB87744bF3c2a9168c1cbd62ee81"; NOTE10[s] = " %5 + %5 + 1$ PANCAKE FEE"; s++;
+            Name[s] = "MSTR"; Contract[s] = "0x2290C6bD9560E6498dFDf10F9eCB17997CA131f2"; ACTIVE[s] = s; s++;
+            Name[s] = "ZEDXION"; Contract[s] = "0xff44967f2E4EBE0b8c5b6812f25e1b9BceC70b34"; ACTIVE[s] = s; s++;
+            Name[s] = "ONLINE"; Contract[s] = "0xe9ED9F1ddE9C831937969F18AB047393a53B07DA"; s++;
+            Name[s] = "ZNX"; Contract[s] = "0xC2EB046621B59f604C7abdB1600D01636AdC4fED"; NOTE10[s] = " FAVORI"; ACTIVE[s] = s; s++;
+            Name[s] = "TYON"; Contract[s] = "0x7Ee43f72b5431082993AE81356472AfbB42F9dAc"; NOTE10[s] = " FAVORI "; s++;
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////                                   ESKI
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            Name[s] = "MONO"; Contract[s] = "0x7317dA9c15303bfb434690586C3373B94fb2dd31"; ACTIVE[s] = s; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "PACT"; Contract[s] = "0x66e7CE35578A37209d01F99F3d2fF271f981F581"; NOTE10[s] = " FAVORI "; s++;
+            Name[s] = "PHDAO"; Contract[s] = "0xeec0f509e651135c7Cd01C07eA140064cf9AC41b"; s++;
+            Name[s] = "SPACE"; Contract[s] = "0x9E1170c12FDDd3B00FEc42ddF4C942565D9Be577"; NOTE10[s] = "FAVORI "; ACTIVE[s] = s; s++;
+            Name[s] = "VAX"; Contract[s] = "0xd92b19fCe032dd4814C85edbb7655bfEa1ADfBC5"; s++;
+            Name[s] = "XWIN"; Contract[s] = "0xd88ca08d8eec1E9E09562213Ae83A7853ebB5d28"; ACTIVE[s] = s; s++;
+            Name[s] = "HPO"; Contract[s] = "0xa0ED3C520dC0632657AD2EaaF19E26C4fD431a84"; ACTIVE[s] = s; s++;
+            Name[s] = "LGC"; Contract[s] = "0x3496212eC43Cc49F5151ec4405efD4975e036f89"; NOTE10[s] = "%8 pancake fee only"; ACTIVE[s] = s; s++;
+            Name[s] = "OHO"; Contract[s] = "0x0576FaD3B0df2722d6bA73E0d37F0658f8cf10cD"; s++;
+            Name[s] = "STRMC"; Contract[s] = "0xC598275452fA319d75ee5f176FD3B8384925b425"; s++;
+
+
+            /////// LATOKEN BASLANGIC //////
+
+            Latoken_Coins = s;
+
+
+            ////////////////    YENILER
+            ///
+
+
+            Name[s] = "DOGEMOB"; Contract[s] = "0xc44f8508e1de753e7c523f98639132eef2ad8ea5"; ACTIVE[s] = s; s++;
+            Name[s] = "REV"; Contract[s] = "0x066e02B480CFBcbCeC79A8A68CE1bfc67B46a6d2"; NOTE10[s] = " P2PB2B DE VAR "; s++;
+            Name[s] = "SPYN"; Contract[s] = "0x3f76517f7ab600fd4879f0ee735051bb9691d5bb"; s++;
+            Name[s] = "BRICS"; Contract[s] = "0xec9742f992acc615c4252060d896c845ca8fc086"; NOTE10[s] = " P2PB2B DE VAR BRICS/BNB "; ACTIVE[s] = s; s++;
+            Name[s] = "AAST"; Contract[s] = "0xb1e998b346dddacd06f01db50645be52dafb93db"; ACTIVE[s] = s; s++;
+            Name[s] = "VGO"; Contract[s] = "0xFb526228ff1C019E4604C7e7988C097D96bD5b70"; ACTIVE[s] = s; s++;
+            Name[s] = "DAN"; Contract[s] = "0x09531ece451453d68f8c6399120f67f19fee4489"; NOTE10[s] = " %10 Pancake fee only "; ACTIVE[s] = s; s++;
+            Name[s] = "MJCT"; Contract[s] = "0x9f2c886e49b6851f8488f8818ddbadfd16b13e7a"; s++;
+            Name[s] = "LUMI"; Contract[s] = "0x9d6df568d4d3e619b99a5f988ac7b2bcc3408753"; ACTIVE[s] = s; s++;
+            Name[s] = "CELL"; Contract[s] = "0xd98438889ae7364c7e2a3540547fad042fb24642"; ACTIVE[s] = s; s++;
+            Name[s] = "O9X"; Contract[s] = "0xc9cb5a999c797efe55da1bf48f74d1bfe08b4357"; s++;
+            Name[s] = "FOAT"; Contract[s] = "0x9100e076cb8f2f5c526c3170ac98839ea22bb388"; NOTE10[s] = "YATIRMA KAPALI"; s++;
+            Name[s] = "PALM"; Contract[s] = "0xf85be0902a16fb87d447021d6e4517b38a15087d"; s++;
+            Name[s] = "YSOY"; Contract[s] = "0x57488fcc3dc72edb0a4c06a356c2c43c08bdfb42"; s++;
+            Name[s] = "ADVB"; Contract[s] = "0xdE846b7805665CD2930cc723CaCCcbB9aC099dB2"; NOTE10[s] = "YATIRMA KAPALI"; s++;
+
+
+            ///////////////     NORMALLER
+
+
+            Name[s] = "TIFI"; Contract[s] = "0x17E65E6b9B166Fb8e7c59432F0db126711246BC0"; NOTE10[s] = " %2 Latoken yatırma ucreti + Pancake"; ACTIVE[s] = s; s++;
+            Name[s] = "SHIBA"; Contract[s] = "0xB84cBbF09b3Ed388a45cD875ebba41a20365e6e7"; ACTIVE[s] = s; s++;
+            Name[s] = "FEG"; Contract[s] = "0xbededDf2eF49E87037c4fb2cA34d1FF3D3992A11"; ACTIVE[s] = s; s++;
+            Name[s] = "BCL"; Contract[s] = "0x02b84f8b64e6c67ae6c797ff4ec4efb06ff19b44"; s++;
+            Name[s] = "BONK"; Contract[s] = "0xa697e272a73744b343528c3bc4702f2565b2f422"; ACTIVE[s] = s; s++;
+            Name[s] = "AVRK"; Contract[s] = "0xb60cb6c66bab2af697bd2c4704d2ebd68203ba4d"; NOTE10[s] = "FAV 0.4$ FEE"; s++;
+            Name[s] = "YES"; Contract[s] = "0xB9d35811424600fa9E8cD62A0471fBd025131cb8"; NOTE10[s] = " Favori 1$ fee"; s++;
+
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            /////                                   ESKI
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            Name[s] = "ADAO"; Contract[s] = "0x3b76374Cc2DfE28Cc373DcA6d5024791B2586335"; ACTIVE[s] = s; s++;
+            Name[s] = "ADR"; Contract[s] = "0x36F1f32c728C3F330409eC1F0928Fa3aB3C8A76F"; ACTIVE[s] = s; s++;
+            Name[s] = "ALU"; Contract[s] = "0x8263CD1601FE73C066bf49cc09841f35348e3be0"; ACTIVE[s] = s; s++;
+            Name[s] = "ANCHOR"; Contract[s] = "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F"; s++;
+            Name[s] = "ANML"; Contract[s] = "0x06FDA0758c17416726f77Cb11305EAC94C074Ec0"; s++;
+            Name[s] = "AOG"; Contract[s] = "0x40C8225329Bd3e28A043B029E0D07a5344d2C27C"; ACTIVE[s] = s; s++;
+            Name[s] = "ARV"; Contract[s] = "0x6679eB24F59dFe111864AEc72B443d1Da666B360"; ACTIVE[s] = s; s++;
+            Name[s] = "ASY"; Contract[s] = "0xC0Cc1e5761bA5786916FD055562551798E50d573"; ACTIVE[s] = s; s++;
+            Name[s] = "AVO"; Contract[s] = "0xAed8bD0608ef3Cc45290a8d0E4223Ef4C92Dd3dc"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "AZY"; Contract[s] = "0x7b665B2F633d9363b89A98b094B1F9E732Bd8F86"; ACTIVE[s] = s; s++;
+            Name[s] = "BANANA"; Contract[s] = "0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95"; ACTIVE[s] = s; s++;
+            Name[s] = "BAPT"; Contract[s] = "0xA49c8cBBdDFe4DBc8605f0f5c8f2845c5E225d22"; ACTIVE[s] = s; s++;
+            Name[s] = "BCOIN"; Contract[s] = "0x00e1656e45f18ec6747F5a8496Fd39B50b38396D"; NOTE10[s] = "FAVORI cuzdanda olmasada alinir  "; ACTIVE[s] = s; s++;
+            Name[s] = "BEE"; Contract[s] = "0xE070ccA5cdFB3F2B434fB91eAF67FA2084f324D7"; s++;
+            Name[s] = "BEMD"; Contract[s] = "0x50A53Ad44590DF1D6c9fCf257d6416e937e5ED4f"; s++;
+            Name[s] = "BFG"; Contract[s] = "0xBb46693eBbEa1aC2070E59B4D043b47e2e095f86"; s++;
+            Name[s] = "BGVT"; Contract[s] = "0xa03110800894b3CcF8723D991d80875561F96777"; NOTE10[s] = " %3 + %3+ 1$ pancake fee + %3 latoken"; ACTIVE[s] = s; s++;
+            Name[s] = "BIN"; Contract[s] = "0xe56842Ed550Ff2794F010738554db45E60730371"; ACTIVE[s] = s; s++;
+            Name[s] = "BKG"; Contract[s] = "0xa8c4d6DFDde3e3818d251BFa3252A29fa50017E1"; s++;
+            Name[s] = "BLITZ"; Contract[s] = "0xF376807DcdbAa0d7FA86E7c9EAcC58d11ad710E4"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "BLP"; Contract[s] = "0xfE1d7f7a8f0bdA6E415593a2e4F82c64b446d404"; ACTIVE[s] = s; s++;
+            Name[s] = "BLT"; Contract[s] = "0x02Bdf640fba368E7Ba5c6429cCaF251512273865"; s++;
+            Name[s] = "BOBC"; Contract[s] = "0xCE6bD1833BD077f62B2c1F9a777bB829801d6811"; ACTIVE[s] = s; s++;
+            Name[s] = "BOMB"; Contract[s] = "0x522348779DCb2911539e76A1042aA922F9C47Ee3"; ACTIVE[s] = s; s++;
+            Name[s] = "BP"; Contract[s] = "0xACB8f52DC63BB752a51186D1c55868ADbFfEe9C1"; ACTIVE[s] = s; s++;
+            Name[s] = "BTCPAY"; Contract[s] = "0x9f5C37e0fd9bF729b1F0a6F39CE57bE5e9Bfd435"; s++;
+            Name[s] = "CATE"; Contract[s] = "0xE4FAE3Faa8300810C835970b9187c268f55D998F"; ACTIVE[s] = s; s++;
+            Name[s] = "CCAR"; Contract[s] = "0x50332bdca94673F33401776365b66CC4e81aC81d"; s++;
+            Name[s] = "CHER"; Contract[s] = "0x8f36Cc333F55B09Bb71091409A3d7ADE399e3b1C"; ACTIVE[s] = s; s++;
+            Name[s] = "CREMATBSC"; Contract[s] = "0xb8501a9a9aaae239a2490f44e00b284baa0b131a"; NOTE10[s] = " %8 Pancake fee only "; ACTIVE[s] = s; s++;
+            Name[s] = "CTT"; Contract[s] = "0x464863745ED3aF8b9f8871f1082211C55f8f884D"; ACTIVE[s] = s; s++;
+            Name[s] = "DARK"; Contract[s] = "0x12FC07081Fab7DE60987cAd8E8dc407B606FB2F8"; ACTIVE[s] = s; s++;
+            Name[s] = "DEBT"; Contract[s] = "0xC632F90affeC7121120275610BF17Df9963F181c"; ACTIVE[s] = s; s++;
+            Name[s] = "DEXSHARE"; Contract[s] = "0xf4914E6D97a75f014AcFcF4072f11be5CfFc4cA6"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "DLEGENDS"; Contract[s] = "0x88c55B3255aE1e6628C953C5CDfF27Ad3Cc33C81"; ACTIVE[s] = s; s++;
+            Name[s] = "DMLG"; Contract[s] = "0x1c796C140de269E255372ea687EF7644BAb87935"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "DMX"; Contract[s] = "0xf3105fa02e24E84A3dA56551439Fbe1Fab3497bb"; s++;
+            Name[s] = "DOGE2"; Contract[s] = "0x3780E00D4c60887AF38345cCd44f7617dBFB10A0"; NOTE10[s] = "LATOKEN WITHDRAWING PROBLEM %2 + %2 + 0.7$ FEE COINSBIT VAR"; s++;
+            Name[s] = "DOME"; Contract[s] = "0x475bFaa1848591ae0E6aB69600f48d828f61a80E"; ACTIVE[s] = s; s++;
+            Name[s] = "DPET"; Contract[s] = "0xfb62AE373acA027177D1c18Ee0862817f9080d08"; ACTIVE[s] = s; s++;
+            Name[s] = "ENG"; Contract[s] = "0x8a505D5Cb3Db9fcf404c0A72aF3dF8Be4eFB707c"; ACTIVE[s] = s; s++;
+            Name[s] = "ERA7"; Contract[s] = "0x6f9F0c4ad9Af7EbD61Ac5A1D4e0F2227F7B0E5f9"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "FIST"; Contract[s] = "0xC9882dEF23bc42D53895b8361D0b1EDC7570Bc6A"; ACTIVE[s] = s; s++;
+            Name[s] = "FIWA"; Contract[s] = "0x633237C6FA30FAe46Cc5bB22014DA30e50a718cC"; ACTIVE[s] = s; s++;
+            Name[s] = "FLAG"; Contract[s] = "0xa5496935A247fA81B1462E553ad139d2FD0af795"; s++;
+            Name[s] = "FLN"; Contract[s] = "0x37D39950f9C753d62529DbF68fCb4DCa4004fBFd"; NOTE10[s] = " %9 + 1$ pancake fee "; s++;
+            Name[s] = "FREN"; Contract[s] = "0x13958e1eb63dFB8540Eaf6ed7DcbBc1A60FD52AF"; s++;
+            Name[s] = "GAFI"; Contract[s] = "0x89Af13A10b32F1b2f8d1588f93027F69B6F4E27e"; ACTIVE[s] = s; s++;
+            Name[s] = "GCME"; Contract[s] = "0x9528cCEb678B90dAf02cA5cA45622D5cBaF58A30"; NOTE10[s] = " %10 + %10 + 1$ pancake fee + %10 latoken"; ACTIVE[s] = s; s++;
+            Name[s] = "GEM"; Contract[s] = "0xBaC1df744df160877cDc45E13d0394c06bC388Ff"; NOTE10[s] = "FAV 0.4$ FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "GENE"; Contract[s] = "0x9df465460938f9EBDF51C38CC87D72184471F8F0"; ACTIVE[s] = s; s++;
+            Name[s] = "GFT"; Contract[s] = "0x72fF5742319eF07061836F5C924aC6D72c919080"; ACTIVE[s] = s; s++;
+            Name[s] = "GMM"; Contract[s] = "0x5B6bf0c7f989dE824677cFBD507D9635965e9cD3"; ACTIVE[s] = s; s++;
+            Name[s] = "GMR"; Contract[s] = "0x168e3b1746aa249a9b3603b70605924fe255ee1a"; NOTE10[s] = " %3 + 1$ PANCAKE FEE ONLY"; ACTIVE[s] = s; s++;
+            Name[s] = "GNP"; Contract[s] = "0xfA139CC2F5C5b8C72309BE8E63C3024D03B7E63C"; ACTIVE[s] = s; s++;
+            Name[s] = "GUM"; Contract[s] = "0xc53708664b99DF348dd27C3Ac0759d2DA9c40462"; NOTE10[s] = "FAV 0.4$ FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "HE"; Contract[s] = "0x20D39a5130F799b95B55a930E5b7eBC589eA9Ed8"; ACTIVE[s] = s; s++;
+            Name[s] = "HELLO"; Contract[s] = "0x0F1cBEd8EFa0E012AdbCCB1638D0aB0147D5Ac00"; ACTIVE[s] = s; s++;
+            Name[s] = "HERO"; Contract[s] = "0xD40bEDb44C081D2935eebA6eF5a3c8A31A1bBE13"; ACTIVE[s] = s; s++;
+            Name[s] = "HEROES"; Contract[s] = "0x261510Dd6257494eEA1DDA7618DBe8a7b87870dd"; ACTIVE[s] = s; s++;
+            Name[s] = "HI"; Contract[s] = "0x77087aB5Df23cFB52449A188e80e9096201c2097"; ACTIVE[s] = s; s++;
+            Name[s] = "HOD"; Contract[s] = "0x19A4866a85c652EB4a2ED44c42e4CB2863a62D51"; ACTIVE[s] = s; s++;
+            Name[s] = "HOHOHOV2"; Contract[s] = "0x14940169E2Db1595CDD3CACd30DECC5bbB4d9f19"; NOTE10[s] = "%10 + 0.5$ PANCAKE FEE + LATOKEN"; s++;
+            Name[s] = "HOTCROSS"; Contract[s] = "0x4FA7163E153419E0E1064e418dd7A99314Ed27b6"; ACTIVE[s] = s; s++;
+            Name[s] = "IBIKS"; Contract[s] = "0x5Db9C6dE11C1bd9F6000bD5E646C18f997d6Abd7"; NOTE10[s] = "%14 + 0.5$ PANCAKE FEES + %4 + LATOKEN"; s++;
+            Name[s] = "ILUS"; Contract[s] = "0xa6630B22974F908a98a8139CB12Ec2EbABfbe9D4"; s++;
+            Name[s] = "INDIA"; Contract[s] = "0x4D8C829c02585AA62D2bBAF562099bF749637580"; NOTE10[s] = "%13 + %13 Pancake + 0.5$ swap ücreti + %13 LATOKEN gonderim ucreti + Latoken kesinti"; s++;
+            Name[s] = "ISTEP"; Contract[s] = "0x67343c29c0fD9827F33E675e0eB80773f9444444"; s++;
+            Name[s] = "ITAMCUBE"; Contract[s] = "0x9B08f10D8C250714F6485212300a7B72f973F1Fd"; s++;
+            Name[s] = "JGN"; Contract[s] = "0xC13B7a43223BB9Bf4B69BD68Ab20ca1B79d81C75"; ACTIVE[s] = s; s++;
+            Name[s] = "JMPT"; Contract[s] = "0x88D7e9B65dC24Cf54f5eDEF929225FC3E1580C25"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "KATA"; Contract[s] = "0x6D6bA21E4C4b29CA7Bfa1c344Ba1E35B8DaE7205"; ACTIVE[s] = s; s++;
+            Name[s] = "KINGSHIB"; Contract[s] = "0x84F4f7cdb4574C9556A494DaB18ffc1D1D22316C"; ACTIVE[s] = s; s++;
+            Name[s] = "KMON"; Contract[s] = "0xc732B6586A93b6B7CF5FeD3470808Bc74998224D"; ACTIVE[s] = s; s++;
+            Name[s] = "LACE"; Contract[s] = "0xA3499dd7dBBBD93CB0f8303f8a8AcE8D02508E73"; s++;
+            Name[s] = "LENDA"; Contract[s] = "0x2D7A47908d817dd359f9aBA7FEaA89c92a289c7E"; s++;
+            Name[s] = "LGC"; Contract[s] = "0x3496212eC43Cc49F5151ec4405efD4975e036f89"; s++;
+            Name[s] = "LIO"; Contract[s] = "0xbCc608002765339db153d07250D516bc4356531b"; NOTE10[s] = "FAVORI 0.7$ GONDERIM UCRETI  "; ACTIVE[s] = s; s++;
+            Name[s] = "LMCSWAP"; Contract[s] = "0x383094a91Ef2767Eed2B063ea40465670bf1C83f"; NOTE10[s] = "FAV 0.4$ FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "LUS"; Contract[s] = "0xde301D6a2569aEfcFe271B9d98f318BAee1D30a4"; ACTIVE[s] = s; s++;
+            Name[s] = "MAPE"; Contract[s] = "0xCa044F16AfA434C0C17c0478D8A6cE4FEEf46504"; s++;
+            Name[s] = "MBE"; Contract[s] = "0x086DDd008e20dd74C4FB216170349853f8CA8289"; NOTE10[s] = " Favori 1$ fee PANCAKE 650 ADET ALIM VE 600 ADET TRANSFER IZNI"; ACTIVE[s] = s; s++;
+            Name[s] = "METADOGEV2"; Contract[s] = "0x9953170dcAac530AD7D6949c7295207c6ec5669D"; NOTE10[s] = " Favori 1$ fee "; ACTIVE[s] = s; s++;
+            Name[s] = "METO"; Contract[s] = "0xa78775bba7a542F291e5ef7f13C6204E704A90Ba"; ACTIVE[s] = s; s++;
+            Name[s] = "MIST"; Contract[s] = "0x68E374F856bF25468D365E539b700b648Bf94B67"; ACTIVE[s] = s; s++;
+            Name[s] = "MNST"; Contract[s] = "0x6a6Ccf15B38DA4b5B0eF4C8fe9FefCB472A893F9"; ACTIVE[s] = s; s++;
+            Name[s] = "MPG"; Contract[s] = "0x53F0E242eA207B6E9b63E0a53e788267aA99fF9B"; NOTE10[s] = "FAV 0.4$ FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "NMX"; Contract[s] = "0xd32d01A43c869EdcD1117C640fBDcfCFD97d9d65"; ACTIVE[s] = s; s++;
+            Name[s] = "NTR"; Contract[s] = "0x8182ac1C5512EB67756A89C40fadB2311757bD32"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "NUM"; Contract[s] = "0xeCEB87cF00DCBf2D4E2880223743Ff087a995aD9"; ACTIVE[s] = s; s++;
+            Name[s] = "NYT"; Contract[s] = "0xfDfF7a8eDA6a3739132867f989bE4bf84E803c15"; NOTE10[s] = "%6 Pancake + 0.5$ swap ücreti + %5 Latoken gonderim ucreti + LATOKEN kesinti"; ACTIVE[s] = s; s++;
+            Name[s] = "OIN"; Contract[s] = "0x658E64FFcF40D240A43D52CA9342140316Ae44fA"; ACTIVE[s] = s; s++;
+            Name[s] = "OKS"; Contract[s] = "0x18aCf236eB40c0d4824Fb8f2582EBbEcD325Ef6a"; ACTIVE[s] = s; s++;
+            Name[s] = "OOE"; Contract[s] = "0x9029FdFAe9A03135846381c7cE16595C3554e10A"; s++;
+            Name[s] = "OPUL"; Contract[s] = "0x686318000d982bc8dCC1cdCF8fFd22322F0960Ed"; ACTIVE[s] = s; s++;
+            Name[s] = "PETO"; Contract[s] = "0xe327eD2037F133cdA9F56171b68B6b7b4Dfa6175"; NOTE10[s] = "FAV 0.4$ FEE"; s++;
+            Name[s] = "PLACE"; Contract[s] = "0x07728696eE70A28c9C032926577AF1D524Df30f9"; ACTIVE[s] = s; s++;
+            Name[s] = "PLOCK"; Contract[s] = "0xCE0f314013Dc814F2da9d58160C54231fb2dDae2"; s++;
+            Name[s] = "POSI"; Contract[s] = "0x5CA42204cDaa70d5c773946e69dE942b85CA6706"; ACTIVE[s] = s; s++;
+            Name[s] = "POTS"; Contract[s] = "0x3Fcca8648651E5b974DD6d3e50F61567779772A8"; ACTIVE[s] = s; s++;
+            Name[s] = "PTAS"; Contract[s] = "0x991bb6093Fa735D27CD1444b2ad8FdD95876FeD5"; NOTE10[s] = " %7 + %7 + 1$ pancake fee only"; ACTIVE[s] = s; s++;
+            Name[s] = "PVU"; Contract[s] = "0x31471E0791fCdbE82fbF4C44943255e923F1b794"; ACTIVE[s] = s; s++;
+            Name[s] = "RACA"; Contract[s] = "0x12BB890508c125661E03b09EC06E404bc9289040"; ACTIVE[s] = s; s++;
+            Name[s] = "RCH"; Contract[s] = "0x041E714Aa0DcE7d4189441896486d361e98BAD5f"; ACTIVE[s] = s; s++;
+            Name[s] = "RISE"; Contract[s] = "0xC17c30e98541188614dF99239cABD40280810cA3"; NOTE10[s] = "%5 Deposite fee Pancake Bilinmiyor"; ACTIVE[s] = s; s++;
+            Name[s] = "SAFUU"; Contract[s] = "0xE5bA47fD94CB645ba4119222e34fB33F59C7CD90"; NOTE10[s] = "%15 Pancake swap ucreti kalani bilinmiyor"; ACTIVE[s] = s; s++;
+            Name[s] = "SFM"; Contract[s] = "0x42981d0bfbAf196529376EE702F2a9Eb9092fcB5"; ACTIVE[s] = s; s++;
+            Name[s] = "SFUND"; Contract[s] = "0x477bC8d23c634C154061869478bce96BE6045D12"; ACTIVE[s] = s; s++;
+            Name[s] = "SHIBELON"; Contract[s] = "0xC183062db25FC96325485ea369C979CE881Ac0eA"; NOTE10[s] = "%15 Deposite fee Pancake Bilinmiyor"; ACTIVE[s] = s; s++;
+            Name[s] = "SIF"; Contract[s] = "0xa120EF497039bd269b621Cdf31e7E9bFEf1c80a7"; s++;
+            Name[s] = "SIN"; Contract[s] = "0x6397de0F9aEDc0F7A8Fa8B438DDE883B9c201010"; ACTIVE[s] = s; s++;
+            Name[s] = "SMTY"; Contract[s] = "0xbF776e4FCa664D791C4Ee3A71e2722990E003283"; ACTIVE[s] = s; s++;
+            Name[s] = "SPG"; Contract[s] = "0x0ecAF010fC192E2d5cBeB4dFb1FeE20fbd733aa1"; s++;
+            Name[s] = "SPO"; Contract[s] = "0x8357c604c5533fa0053BeAaA1494Da552ceA38f7"; ACTIVE[s] = s; s++;
+            Name[s] = "SPY"; Contract[s] = "0x17fd3cAa66502C6F1CbD5600D8448f3aF8f2ABA1"; NOTE10[s] = " Favori 1$ fee"; ACTIVE[s] = s; s++;
+            Name[s] = "SQUA"; Contract[s] = "0xB82BEb6Ee0063Abd5fC8E544c852237aA62CBb14"; s++;
+            Name[s] = "SRT"; Contract[s] = "0xe177295Fa0142331aBDc8B106832789e0c0fE77b"; NOTE10[s] = "%3 + %3 pancake fee + %3 latoken fee + latoken"; s++;
+            Name[s] = "STA"; Contract[s] = "0x4D1E90aB966ae26c778b2f9f365aA40abB13f53C"; s++;
+            Name[s] = "STORY"; Contract[s] = "0x85EE8e3E0068EdeeEE960979958d7F61416a9d84"; ACTIVE[s] = s; s++;
+            Name[s] = "STRIP"; Contract[s] = "0x0fe178b9a471b3698cB6FcB4625DF9A756A2C55C"; ACTIVE[s] = s; s++;
+            Name[s] = "STRM"; Contract[s] = "0xC598275452fA319d75ee5f176FD3B8384925b425"; s++;
+            Name[s] = "TABOO"; Contract[s] = "0x9abDbA20EdFbA06B782126b4D8d72A5853918FD0"; NOTE10[s] = "%7 LATOKEN YATIRMA FEES"; ACTIVE[s] = s; s++;
+            Name[s] = "TRDC"; Contract[s] = "0x7e8DB69dcff9209E486a100e611B0af300c3374e"; ACTIVE[s] = s; s++;
+            Name[s] = "TSX"; Contract[s] = "0x270388e0CA29CFd7C7E73903D9d933a23D1BAB39"; ACTIVE[s] = s; s++;
+            Name[s] = "TTC"; Contract[s] = "0x152ad7Dc399269FA65D19BD7A790Ea8aa5b23DaD"; s++;
+            Name[s] = "ULTI"; Contract[s] = "0x42BFE4A3E023f2C90aEBFfbd9B667599Fa38514F"; s++;
+            Name[s] = "UMB"; Contract[s] = "0x846F52020749715F02AEf25b5d1d65e48945649D"; ACTIVE[s] = s; s++;
+            Name[s] = "VANCAT"; Contract[s] = "0x0Da1774e58eD28fF9749340F116055F8d836A7C8"; NOTE10[s] = "%12 + 0.5$ Pancake FEE"; s++;
+            Name[s] = "VENT"; Contract[s] = "0x872D068c25511be88C1f5990c53eEFFCDf46c9B4"; ACTIVE[s] = s; s++;
+            Name[s] = "WALV"; Contract[s] = "0x256D1fCE1b1221e8398f65F9B36033CE50B2D497"; NOTE10[s] = "BITMART VAR"; ACTIVE[s] = s; s++;
+            Name[s] = "WAM"; Contract[s] = "0xeBBAefF6217d22E7744394061D874015709b8141"; ACTIVE[s] = s; s++;
+            Name[s] = "WOD"; Contract[s] = "0x298632D8EA20d321fAB1C9B473df5dBDA249B2b6"; NOTE10[s] = "%3 LATOKEN CEKIM UCRETI SADECE"; ACTIVE[s] = s; s++;
+            Name[s] = "WOW"; Contract[s] = "0x4eaf5492838F34AAf6a5E1c603872DA94BAeDc7d"; s++;
+            Name[s] = "WTF"; Contract[s] = "0xd73F32833B6D5D9c8070c23e599e283a3039823C"; ACTIVE[s] = s; s++;
+            Name[s] = "WWSTEP"; Contract[s] = "0x465707181ACba42Ed01268A33f0507e320a154bD"; NOTE10[s] = "%10 + 0.5$ Pancake FEE"; ACTIVE[s] = s; s++;
+            Name[s] = "XCV"; Contract[s] = "0x4be63a9b26EE89b9a3a13fd0aA1D0b2427C135f8"; ACTIVE[s] = s; s++;
+            Name[s] = "XED"; Contract[s] = "0x5621b5A3f4a8008c4CCDd1b942B121c8B1944F1f"; ACTIVE[s] = s; s++;
+            Name[s] = "XLD"; Contract[s] = "0xC79d1fD14F514cD713b5cA43D288a782Ae53eAb2"; ACTIVE[s] = s; s++;
+            Name[s] = "XPNET"; Contract[s] = "0x8cf8238abf7b933Bf8BB5Ea2C7E4Be101c11de2A"; ACTIVE[s] = s; s++;
+            Name[s] = "XWG"; Contract[s] = "0x6b23C89196DeB721e6Fd9726E6C76E4810a464bc"; ACTIVE[s] = s; s++;
+            Name[s] = "ZILLIONXO"; Contract[s] = "0x9A2478C4036548864d96a97Fbf93f6a3341fedac"; ACTIVE[s] = s; s++;
+
+            ////////////////    YENILER
+            ///
+            ////////////////  ONEMILYAR  1.000.000.000  
+
+
+            Name[s] = "EVERETH"; Contract[s] = "0x16dCc0eC78E91e868DCa64bE86aeC62bf7C61037"; OneMilyar[s] = s; ACTIVE[s] = s; NOTE10[s] = "%12 + %12 pancake fee + %12 Latoken yatırma ucreti"; s++;
+            Name[s] = "FWC"; Contract[s] = "0x6D3a160B86eDcD46D8F9bBa25c2F88ccCADe19fc"; OneMilyar[s] = s; s++;
+            Name[s] = "GOLDUCK"; Contract[s] = "0x1a1c6f9F6B4E535130E9b1de46bBc76130b61Feb"; NOTE10[s] = " %4 Latoken yatırma ucreti - %4 latoken transfer + latoken +%4 pancake fee"; OneMilyar[s] = s; s++;
+            Name[s] = "HAM"; Contract[s] = "0x679D5b2d94f454c950d683D159b87aa8eae37C9e"; ACTIVE[s] = s; NOTE10[s] = " %12 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; s++;
+            Name[s] = "MILO"; Contract[s] = "0xd9dE2B1973E57Dc9DBA90c35d6Cd940ae4A3CBe1"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "MVC"; Contract[s] = "0x80d04E44955AA9c3F24041B2A824A20A88E735a8"; NOTE10[s] = " %12.5 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "RAINBOW"; Contract[s] = "0x673Da443da2f6aE7c5c660A9F0D3DD24d1643D36"; NOTE10[s] = " %7 Latoken yatırma ucreti + %7 latoken çekim + %10 pancake fee"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "SHIBEMP"; Contract[s] = "0x14AAD57fB5f9A0C9ce136CF93521cBeBE14EC2e6"; NOTE10[s] = " %10 Latoken yatırma ucreti + %10 pancake fee"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "SNB"; Contract[s] = "0x5E7fC3844463745FcA858f85D6b90D9a03fCBe93"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "SPCPPR"; Contract[s] = "0x705220142db829e054Ee06351c06ba814dA2a89B"; NOTE10[s] = "%10 + %10 pANCAKE FEE + %10 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; s++;
+            Name[s] = "SSB"; Contract[s] = "0x55B53855eaE06c4744841dbFA06FCe335dB4355B"; NOTE10[s] = " %20 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; s++;
+            Name[s] = "SWEEP"; Contract[s] = "0x09c704c1EB9245Af48f058878e72129557a10F04"; OneMilyar[s] = s; s++;
+            Name[s] = "TALK"; Contract[s] = "0x7606267A4bfff2c5010c92924348C3e4221955f2"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "WKC"; Contract[s] = "0x6Ec90334d89dBdc89E08A133271be3d104128Edb"; NOTE10[s] = " %2 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "WSG"; Contract[s] = "0xA58950F05FeA2277d2608748412bf9F802eA4901"; ACTIVE[s] = s; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "DUKE"; Contract[s] = "0xAEe234825dC4687faE606485c1eBD06336052bCc"; NOTE10[s] = " %2 Latoken yatırma ucreti + Pancake"; OneMilyar[s] = s; ACTIVE[s] = s; s++;
+
+            ////////////////     ONEM    1.000.000
+            ///
+
+            Name[s] = "CATA"; Contract[s] = "0xbdf5bafee1291eec45ae3aadac89be8152d4e673"; ACTIVE[s] = s; OneM[s] = s; s++;
+            Name[s] = "DOGA"; Contract[s] = "0x05311d9aa0e17d1071986146ced510c85c71b52f"; ACTIVE[s] = s; OneM[s] = s; s++;
+            Name[s] = "TUSK"; Contract[s] = "0x1bdb81ce3d0a3f10a448d4cbc051e0e7985f4ba7"; NOTE10[s] = " %2 + %2 pancake + %2 latoken yatırma ucreti "; OneM[s] = s; s++;
+            Name[s] = "SST"; Contract[s] = "0x160F2098db37DA1bed6C541663d20D74632e3953"; OneM[s] = s; s++;
+            Name[s] = "WED"; Contract[s] = "0xddbb3e6f8413d0e3adc700a731da304aec97bcbb"; NOTE10[s] = " %6 + %6 + 1$ pancake fee + %1 latoken"; OneM[s] = s; s++;
+            Name[s] = "BABYDOGE"; Contract[s] = "0xc748673057861a797275CD8A068AbB95A902e8de"; NOTE10[s] = " %10 Latoken yatırma ucreti + Pancake"; ACTIVE[s] = s; OneM[s] = s; s++;
+            Name[s] = "BLOVELY"; Contract[s] = "0x04Df8C91FCcFd703cD15047bF6C1cE76D335C6cE"; ACTIVE[s] = s; NOTE10[s] = " %10 Latoken yatırma ucreti + Pancake"; OneM[s] = s; s++;
+            Name[s] = "BRISE"; Contract[s] = "0x8FFf93E810a2eDaaFc326eDEE51071DA9d398E83"; NOTE10[s] = " %12 Latoken yatırma ucreti + Pancake"; OneM[s] = s; s++;
+            Name[s] = "CATGIRL"; Contract[s] = "0x79eBC9A2ce02277A4b5b3A768b1C0A4ed75Bd936"; NOTE10[s] = " %5 Latoken yatırma ucreti + Pancake"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "DBC"; Contract[s] = "0x220e6a613f00c79025d5611b73639e045b186ff8"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "FIBO"; Contract[s] = "0xF892561596B7b8085fAd1b03b902D00096AE31aD"; NOTE10[s] = " %5 Latoken yatırma ucreti + Pancake"; OneM[s] = s; s++;
+            Name[s] = "FREE"; Contract[s] = "0x12e34cDf6A031a10FE241864c32fB03a4FDaD739"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "FRF"; Contract[s] = "0x5A29c96fA93FFA8845fb7F8616a03Aa85fCc11d6"; OneM[s] = s; NOTE10[s] = " %13 Latoken CEKME ucreti SADECE"; ACTIVE[s] = s; s++;
+            Name[s] = "KABOSU"; Contract[s] = "0x4A824eE819955A7D769e03fe36f9E0C3Bd3Aa60b"; NOTE10[s] = " %10 Latoken yatırma ucreti + Pancake"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "LOVELY"; Contract[s] = "0x9E24415d1e549EBc626a13a482Bb117a2B43e9CF"; ACTIVE[s] = s; OneM[s] = s; s++;
+            Name[s] = "MMIT"; Contract[s] = "0x9767c8E438Aa18f550208e6d1fDf5f43541cC2c8"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "QRT"; Contract[s] = "0x921d3a6ed8223AFb6358410F717e2FB13cbae700"; NOTE10[s] = " %25 Latoken yatırma ucreti + Pancake"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "QUACK"; Contract[s] = "0xD74b782E05AA25c50e7330Af541d46E18f36661C"; NOTE10[s] = " %12 Latoken yatırma ucreti + Pancake"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "SAFEMARS"; Contract[s] = "0x3aD9594151886Ce8538C1ff615EFa2385a8C3A88"; NOTE10[s] = " %4 Latoken yatırma ucreti + Pancake"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "CLU"; Contract[s] = "0x1162E2EfCE13f99Ed259fFc24d99108aAA0ce935"; OneM[s] = s; ACTIVE[s] = s; s++;
+            Name[s] = "YOOSHI"; Contract[s] = "0x02ff5065692783374947393723dba9599e59f591"; OneM[s] = s; ACTIVE[s] = s; s++;
+
+            ////////////////     ONET 1.000.000.000.000
+
+            Name[s] = "CATVILLS"; Contract[s] = "0xa531a733070a5fF4866D1327d82e403Fa35290A6"; NOTE10[s] = " %8 Latoken yatırma ucreti + Pancake"; OneT[s] = s; s++;
+            Name[s] = "MMS"; Contract[s] = "0x4198B601f9F9b725Ce522a19B702Aa849128463C"; NOTE10[s] = " %5 Latoken yatırma ucreti + Pancake"; OneT[s] = s; s++;
+            Name[s] = "WENLAMBO"; Contract[s] = "0xd8A31016cD7da048ca21FFE04256C6d08C3A2251"; NOTE10[s] = " %10 Latoken yatırma ucreti + Pancake"; OneT[s] = s; s++;
+
+
+
+
+
+            for (int i = 1; i < s; i++)
+            {
+                for (int j = 1; j < ALIS_SATIS_INDOEX.Length; j++)
+                {
+                    if (j == 1)
+                    {
+
+                        filePath_Dextrade_Alis[i] = DEXTRADE_Texts_File_Location + Name[i] + ALIS_SATIS_DEXTRADE[j];
+                        filePath_P2pb2b_Alis[i] = P2PB2B_Texts_File_Location + Name[i] + ALIS_SATIS_P2PB2B[j];
+                        filePath_INDOEX_Alis[i] = INDOEX_Texts_File_Location + Name[i] + ALIS_SATIS_INDOEX[j];
+                        filePath_Coinsbit_Alis[i] = COINSBIT_Texts_File_Location + Name[i] + ALIS_SATIS_COINSBIT[j];
+                        filePath_Latoken_Alis[i] = LATOKEN_Texts_File_Location + Name[i] + ALIS_SATIS_LATOKEN[j];
+
+                    }
+                    else
+                    {
+                        filePath_Dextrade_Satis[i] = DEXTRADE_Texts_File_Location + Name[i] + ALIS_SATIS_DEXTRADE[j];
+                        filePath_P2pb2b_Satis[i] = P2PB2B_Texts_File_Location + Name[i] + ALIS_SATIS_P2PB2B[j];
+                        filePath_INDOEX_Satis[i] = INDOEX_Texts_File_Location + Name[i] + ALIS_SATIS_INDOEX[j];
+                        filePath_Coinsbit_Satis[i] = COINSBIT_Texts_File_Location + Name[i] + ALIS_SATIS_COINSBIT[j];
+                        filePath_Latoken_Satis[i] = LATOKEN_Texts_File_Location + Name[i] + ALIS_SATIS_LATOKEN[j];
+                    }
+                }
+            }
+            for (int i = 1; i < s; i++)
+            {
+                filePath_P[i] = PANCAKE_Texts_File_Location + Name[i] + "_PANCAKE" + ".txt";
+            }
+
+
+
+
+
+
+            driver.Manage().Window.Maximize();
+
+
+
+            string Con1, Con2;
+
+            for (int i = 1; i < s; i++)
+            {
+                if (i > 3)
+                {
+                    for (int j = i - 1; j > 0; j--)
+                    {
+                        Con1 = Contract[i].ToLower();
+                        Con2 = Contract[j].ToLower();
+                        if (Con1 == Con2)
+                        {
+                            ACTIVE[i] = i;
+                            if (Coinsbit_Coins > j)
+                            {
+                                NOTEINDOEX[i] = " INDOEX'DE VAR";
+                                NOTE10INDOEX[i] = NOTE10[j];
+                            }
+                            if (Coinsbit_Coins <= j && Dextrade_Coins > j)
+                            {
+                                NOTECOINSBIT[i] = " COINSBIT'DE VAR";
+                                NOTE10COINSBIT[i] = NOTE10[j];
+                            }
+
+                            if (Dextrade_Coins <= j && P2pb2b_Coins > j)
+                            {
+                                NOTEDEXTRADE[i] = " DEXTRADE'DE VAR";
+                                NOTE10DEXTRADE[i] = NOTE10[j];
+                            }
+                            if (P2pb2b_Coins <= j && Latoken_Coins > j)
+                            {
+                                NOTEP2PB2B[i] = " P2PB2B'DE VAR";
+                                NOTE10P2PB2B[i] = NOTE10[j];
+                            }
+                            if (Latoken_Coins <= j)
+                            {
+                                NOTELATOKEN[i] = " LATOKEN'DA VAR";
+                                NOTE10LATOKEN[i] = NOTE10[j];
+                            }
+
+                        }
+                    }
+                }
+            }
+            for (int i = 1; i < s; i++)
+            {
+                int maxRetries = 2;
+                int retryCount = 0;
+                int maxRetries2 = 2;
+                int retryCount2 = 0;
+
+                if (i == 1)
+                {
+                    createText = ("\n" + "INDOEX EXCHANGE LIST " + "\n") + Environment.NewLine;
+                    File.AppendAllText(Path + Final_Text_INDOEX, createText);
+                    File.AppendAllText(Path + Final_Text_EROR, createText);
+                    k = 1;
+                }
+                if (Coinsbit_Coins == i)
+                {
+                    createText = ("\n" + "COINSBIT EXCHANGE LIST " + "\n") + Environment.NewLine;
+                    File.AppendAllText(Path + Final_Text_COINSBIT, createText);
+                    File.AppendAllText(Path + Final_Text_EROR, createText);
+                    k = 1;
+                }
+                if (Latoken_Coins == i)
+                {
+                    createText = ("\n" + "LATOKEN EXCHANGE LIST " + "\n") + Environment.NewLine;
+                    File.AppendAllText(Path + Final_Text_LATOKEN, createText);
+                    File.AppendAllText(Path + Final_Text_EROR, createText);
+                    k = 1;
+                }
+                if (P2pb2b_Coins == i)
+                {
+                    createText = ("\n" + "P2PB2B EXCHANGE LIST " + "\n") + Environment.NewLine;
+                    File.AppendAllText(Path + Final_Text_P2PB2B, createText);
+                    File.AppendAllText(Path + Final_Text_EROR, createText);
+                    k = 1;
+                }
+                if (Dextrade_Coins == i)
+                {
+                    createText = ("\n" + "DEXTRADE EXCHANGE LIST " + "\n") + Environment.NewLine;
+                    File.AppendAllText(Path + Final_Text_DEXTRADE, createText);
+                    File.AppendAllText(Path + Final_Text_EROR, createText);
+                    k = 1;
+                }
+
+                while (retryCount < maxRetries)
+                {
+                    try
+                    {
+
+
+                        /////////////////// PANCAKE BASLANGIC /////////////////////////////////
+
+                        /// PANCAKE iEGhoW
+                        driver.Url = "https://pancakeswap.finance/swap?inputCurrency=0x55d398326f99059ff775485246999027b3197955&outputCurrency=" + Contract[i];
+                        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time10);
+                        w.IgnoreExceptionTypes(typeof(ElementNotSelectableException));
+                        if (ACTIVE[i] == i || retryCount == 1 || retryCount == 2)
+                        {
+                            Thread.Sleep(3000);
+                            Task.Delay(3000);
+                        }
+                        else
+                        {
+                            var myButton = w.Until(IWebDriver => driver.FindElement(pancakeIUnderstandBox));
+                            myButton.Click();
+                            driver.FindElement(pancakeInporButton).Click();
+                        }
+
+                        driver.FindElement(pancakeInputUsdt).SendKeys(Key50);
+                        Thread.Sleep(delayValPancake);
+                        Task.Delay(delayValPancake);
+
+                        w.Until(IWebDriver => driver.FindElement(By.CssSelector(".sc-bad5c764-0.cgdgln")));
+                        Thread.Sleep(delayValPancake);
+                        Task.Delay(delayValPancake);
+                        PancakeScreenshot(Name[i], driver, driver.FindElement(By.CssSelector(".sc-bad5c764-0.cgdgln"))); // .sc-iBAaJG.jUICWw  .sc-bad5c764-0.cgdgln
+
+
+                        fileExist = File.Exists(filePath_P[i]);
+                        if (fileExist)
+                        {
+
+                            List<string> lines_PANCAKE = new List<string>();
+                            lines_PANCAKE = File.ReadAllLines(filePath_P[i]).ToList();
+                            P = lines_PANCAKE[0];
+
+                            if (Double.TryParse(P, out b))
+                            {
+                                COIN_VALUE_PANCAKE = b;
+
+                            }
+                            else
+                            {
+
+                                createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + " Bir deger degil  = " + P + " " + Contract[i] + "\n") + Environment.NewLine;
+                                File.AppendAllText(Path + Final_Text_EROR, createText);
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+
+                    catch (Exception ex)
+                    {
+                        retryCount++;
+                        if (retryCount == 1)
+                        {
+                            File.AppendAllText(Path + Final_Text_EROR, "\n" + k + " - " + GetLineNumber(ex.StackTrace) + " " + "RETRY = 1 KONTROL ET PANCAKE ICIN AKTIF MI DEGIL MI " + Name[i] + " " + Contract[i] + " " + ex.Message + "\n");
+                            k++;
+                        }
+                        if (retryCount == 2)
+                        {
+                            File.AppendAllText(Path + Final_Text_EROR, "\n" + k + " - " + GetLineNumber(ex.StackTrace) + " " + "RETRY = 2 KONTROL ET PANCAKE ICIN AKTIF MI DEGIL MI " + Name[i] + " " + Contract[i] + " " + ex.Message + "\n");
+                            k++;
+                        }
+
+                    }
+
+
+                }
+
+
+
+                /////////////////// INDOEX BASLANGIC /////////////////////////////////
+                while (retryCount2 < maxRetries2)
+                {
+                    try
+                    {
+                        if (Coinsbit_Coins > i)
+                        {
+                            COIN_VALUE_ICLB_SATIS = 0.00;
+                            COIN_VALUE_ICLB_ALIS = 0.00;
+                            USDT_AL = 0.00;
+                            USDT_SAT = 0.00;
+
+                            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time10); driver.Url = "https://www.indoex.io/trade/" + Name[i] + "_USDT";
+
+                            w.Until(IWebDriver => driver.FindElements(By.CssSelector("#table_data span.red.span_width1")));
+
+                            Thread.Sleep(200);
+                            Task.Delay(200);
+
+                            IList<IWebElement> buyValues = driver.FindElements(By.CssSelector("#table_data span.green.span_width1"));
+                            IList<IWebElement> sellValues = driver.FindElements(By.CssSelector("#table_data span.red.span_width1"));
+                            IList<IWebElement> buyValuesTotal = driver.FindElements(By.CssSelector("#table_data span.span_width3"));
+                            IList<IWebElement> sellValuesTotal = driver.FindElements(By.CssSelector("#table_data span.span_width3"));
+
+                            Thread.Sleep(400);
+                            Task.Delay(400);
+
+                            checkAl = sellValues.Count;
+                            if (sellValues != null && checkAl > 0)
+                            {
+                                for (int j = 0; j < checkAl; j++)
+                                {
+
+
+                                    string value = sellValues.ElementAt(j).Text.Replace(",", "").Replace(".", ",");
+                                    string total = sellValuesTotal.ElementAt(j).Text.Replace(",", "").Replace(".", ",");
+
+                                    int dotIndex = total.IndexOf(',');
+                                    if (dotIndex != -1)
+                                    {
+                                        total = total.Substring(0, dotIndex);
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(value))
+                                    {
+                                        File.AppendAllText(filePath_INDOEX_Alis[i], value + Environment.NewLine + total + Environment.NewLine);
+                                    }
+
+
+
+                                }
+
+                                int count = 0;
+                                double[] INDOEXAl = new double[checkAl];
+                                List<string> lines_INDOEX_Alis = new List<string>();
+                                lines_INDOEX_Alis = File.ReadAllLines(filePath_INDOEX_Alis[i]).ToList();
+
+                                for (int j = 0; j < lines_INDOEX_Alis.Count; j++)
+                                {
+                                    if (((j * 2) + 1) < lines_INDOEX_Alis.Count)
+                                    {
+                                        P = lines_INDOEX_Alis[j * 2];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            INDOEXAl[j] = b;
+                                            if (INDOEXAl[j] <= (COIN_VALUE_PANCAKE * 0.90))
+                                            {
+                                                COIN_VALUE_ICLB_ALIS += INDOEXAl[j];
+                                                count++;
+                                                string fiyat2 = lines_INDOEX_Alis[(j * 2) + 1];
+                                                P = fiyat2;
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_AL += b;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_ALIS = COIN_VALUE_ICLB_ALIS / count;
+                                }
+                                File.WriteAllText(filePath_INDOEX_Alis[i], COIN_VALUE_ICLB_ALIS.ToString() + "\n" + USDT_AL.ToString());
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Alis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+                            checkSat = buyValues.Count;
+                            if (buyValues != null && checkSat > 0)
+                            {
+                                for (int j = 0; j < checkSat; j++)
+                                {
+
+                                    string value = buyValues.ElementAt(j).Text.Replace(",", "").Replace(".", ",");
+                                    string total = buyValuesTotal.ElementAt(sellValues.Count + j).Text.Replace(",", "").Replace(".", ",");
+
+                                    int dotIndex = total.IndexOf(',');
+                                    if (dotIndex != -1)
+                                    {
+                                        total = total.Substring(0, dotIndex);
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(value))
+                                    {
+                                        File.AppendAllText(filePath_INDOEX_Satis[i], value + Environment.NewLine + total + Environment.NewLine);
+                                    }
+                                }
+
+                                int count = 0;
+                                double[] INDOEXSAT = new double[checkSat];
+                                List<string> lines_INDOEX_Satis = new List<string>();
+                                lines_INDOEX_Satis = File.ReadAllLines(filePath_INDOEX_Satis[i]).ToList();
+
+                                for (int j = 0; j < lines_INDOEX_Satis.Count; j++)
+                                {
+                                    if (((j * 2) + 1) < lines_INDOEX_Satis.Count)
+                                    {
+                                        P = lines_INDOEX_Satis[j * 2];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            INDOEXSAT[j] = b;
+                                            if (INDOEXSAT[j] >= (COIN_VALUE_PANCAKE * 1.10))
+                                            {
+                                                COIN_VALUE_ICLB_SATIS += INDOEXSAT[j];
+                                                count++;
+                                                string fiyat2 = lines_INDOEX_Satis[(j * 2) + 1];
+                                                P = fiyat2;
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_SAT += b;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_SATIS = COIN_VALUE_ICLB_SATIS / count;
+                                }
+                                File.WriteAllText(filePath_INDOEX_Satis[i], COIN_VALUE_ICLB_SATIS.ToString() + "\n" + USDT_SAT.ToString());
+
+
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Satis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+
+                            fileExist = File.Exists(filePath_INDOEX_Alis[i]);
+                            if (fileExist)
+                            {
+
+                                if (new FileInfo(filePath_INDOEX_Alis[i]).Length != 0)
+                                {
+
+                                    List<string> lines_INDOEX_Alis = new List<string>();
+                                    lines_INDOEX_Alis = File.ReadAllLines(filePath_INDOEX_Alis[i]).ToList();
+                                    P = lines_INDOEX_Alis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_ALIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = ("\n" + k + " - " + Name[i] + "_INDOEX" + "_ALIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_INDOEX, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            fileExist = File.Exists(filePath_INDOEX_Satis[i]);
+                            if (fileExist)
+                            {
+
+                                if (new FileInfo(filePath_INDOEX_Satis[i]).Length != 0)
+                                {
+
+                                    List<string> lines_INDOEX_Satis = new List<string>();
+                                    lines_INDOEX_Satis = File.ReadAllLines(filePath_INDOEX_Satis[i]).ToList();
+                                    P = lines_INDOEX_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_SATIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = ("\n" + k + " - " + Name[i] + "_INDOEX" + "_SATIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_INDOEX, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                        /////////////////// COINSBIT BASLANGIC /////////////////////////////////
+
+                        if (Coinsbit_Coins <= i && Dextrade_Coins > i)
+                        {
+
+                            double[] USDT_COINSBITSAT = new double[1000];
+                            double[] USDT_COINSBITAL = new double[1000];
+                            COIN_VALUE_ICLB_SATIS = 0.00;
+                            COIN_VALUE_ICLB_ALIS = 0.00;
+                            USDT_SAT = 0.00;
+                            USDT_AL = 0.00;
+
+                            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(Second20);
+                            if (BUSD[i] == i)
+                            {
+                                driver.Url = "https://coinsbit.io/trade_classic/" + Name[i] + "_BUSD";
+                            }
+                            else if (HunderedK[i] == i)
+                            {
+                                driver.Url = "https://coinsbit.io/trade_classic/" + Name[i] + "_mUSDT";
+                            }
+                            else
+                            {
+                                driver.Url = "https://coinsbit.io/trade_classic/" + Name[i] + "_USDT";
+                            }
+                            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(Second20);
+                            w.Until(IWebDriver => driver.FindElement(By.CssSelector(".trade-last-orders-table__body.trade-last-orders-table--sell .trade-last-orders-table__cell")));
+
+                            Thread.Sleep(delayVal);
+                            Task.Delay(delayVal);
+
+                            IReadOnlyCollection<IWebElement> elementsAl = driver.FindElements(By.CssSelector(".trade-last-orders-table__body.trade-last-orders-table--sell .trade-last-orders-table__cell"));
+                            IReadOnlyCollection<IWebElement> elementsSat = driver.FindElements(By.CssSelector(".trade-last-orders-table__body.trade-last-orders-table--buy .trade-last-orders-table__cell"));
+                            // Fiyat bilgilerini depolamak için liste oluştur
+                            Thread.Sleep(delayVal);
+                            Task.Delay(delayVal);
+                            checkSat = elementsSat.Count;
+                            if (checkSat >= 1)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = 0; j < checkSat; j++)
+                                {
+                                    string fiyat = elementsSat.ElementAt(j).Text.Trim().Replace(".", ",");
+
+                                    File.AppendAllText(filePath_Coinsbit_Satis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] CoinsbitSat = new double[checkSat];
+                                List<string> lines_COINSBIT_Satis = new List<string>();
+                                lines_COINSBIT_Satis = File.ReadAllLines(filePath_Coinsbit_Satis[i]).ToList();
+
+                                for (int j = 0; j < checkSat; j++)
+                                {
+                                    if (j * 3 < lines_COINSBIT_Satis.Count)
+                                    {
+                                        P = lines_COINSBIT_Satis[j * 3];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            CoinsbitSat[j] = b;
+                                            if (HunderedK[i] == i)
+                                            {
+                                                CoinsbitSat[j] = b / 100000;
+                                            }
+                                            if (CoinsbitSat[j] >= (COIN_VALUE_PANCAKE * 1.10))
+                                            {
+                                                COIN_VALUE_ICLB_SATIS += CoinsbitSat[j];
+                                                count++;
+                                                P = lines_COINSBIT_Satis[2 + (j * 3)];
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_COINSBITSAT[2 + (j * 3)] = b;
+                                                    if (HunderedK[i] == i)
+                                                    {
+                                                        USDT_COINSBITSAT[2 + (j * 3)] = b / 100000;
+                                                    }
+                                                    USDT_SAT += USDT_COINSBITSAT[2 + (j * 3)];
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_SATIS = COIN_VALUE_ICLB_SATIS / count;
+                                }
+                                File.WriteAllText(filePath_Coinsbit_Satis[i], COIN_VALUE_ICLB_SATIS.ToString() + "\n" + USDT_SAT.ToString());
+
+
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Satis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+                            checkAl = elementsAl.Count;
+                            // Tüm elementleri döngüyle işle
+                            if (checkAl >= 1)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = checkAl - 1; j >= 0; j--)
+                                {
+                                    string fiyat = elementsAl.ElementAt(j).Text.Trim().Replace(".", ",");
+
+                                    File.AppendAllText(filePath_Coinsbit_Alis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] CoinsbitAl = new double[checkAl];
+                                List<string> lines_COINSBIT_Alis = new List<string>();
+                                lines_COINSBIT_Alis = File.ReadAllLines(filePath_Coinsbit_Alis[i]).ToList();
+
+                                for (int j = 0; j < checkAl; j++)
+                                {
+                                    if (j * 3 < lines_COINSBIT_Alis.Count)
+                                    {
+                                        P = lines_COINSBIT_Alis[2 + (j * 3)];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            CoinsbitAl[j] = b;
+                                            if (HunderedK[i] == i)
+                                            {
+                                                CoinsbitAl[j] = b / 100000;
+                                            }
+                                            if (CoinsbitAl[j] <= (COIN_VALUE_PANCAKE * 0.90))
+                                            {
+                                                COIN_VALUE_ICLB_ALIS += CoinsbitAl[j];
+                                                count++;
+                                                P = lines_COINSBIT_Alis[j * 3];
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_COINSBITAL[j * 3] = b;
+                                                    if (HunderedK[i] == i)
+                                                    {
+                                                        USDT_COINSBITAL[j * 3] = b / 100000;
+                                                    }
+                                                    USDT_AL += USDT_COINSBITAL[j * 3];
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_ALIS = COIN_VALUE_ICLB_ALIS / count;
+                                }
+                                File.WriteAllText(filePath_Coinsbit_Alis[i], COIN_VALUE_ICLB_ALIS.ToString() + "\n" + USDT_AL.ToString());
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Alis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+                            ///////
+
+                            fileExist = File.Exists(filePath_Coinsbit_Alis[i]);
+                            if (fileExist)
+                            {
+                                if (checkAl != 0)
+                                {
+                                    List<string> lines_COINSBIT_Alis = new List<string>();
+                                    lines_COINSBIT_Alis = File.ReadAllLines(filePath_Coinsbit_Alis[i]).ToList();
+                                    P = lines_COINSBIT_Alis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        COIN_VALUE_ICLB_ALIS = b;
+                                    }
+                                    else
+                                    {
+                                        createText = ("\n" + k + " - " + Name[i] + "_COINSBIT" + "_ALIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_COINSBIT, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            fileExist = File.Exists(filePath_Coinsbit_Satis[i]);
+                            if (fileExist)
+                            {
+                                if (checkSat != 0)
+                                {
+                                    List<string> lines_COINSBIT_Satis = new List<string>();
+                                    lines_COINSBIT_Satis = File.ReadAllLines(filePath_Coinsbit_Satis[i]).ToList();
+                                    P = lines_COINSBIT_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        COIN_VALUE_ICLB_SATIS = b;
+                                    }
+                                    else
+                                    {
+                                        createText = ("\n" + k + " - " + Name[i] + "_COINSBIT" + "_SATIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_COINSBIT, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                        /////////////////// Dextrade BASLANGIC /////////////////////////////////
+                        if (Dextrade_Coins <= i && P2pb2b_Coins > i)
+                        {
+                            COIN_VALUE_ICLB_SATIS = 0.00;
+                            COIN_VALUE_ICLB_ALIS = 0.00;
+                            USDT_AL = 0.00;
+                            USDT_SAT = 0.00;
+
+                            if (BUSD[i] == i)
+                            {
+                                driver.Url = "https://dex-trade.com/tr/spot/trading/" + Name[i] + "BUSD";
+                            }
+                            else
+                            {
+                                driver.Url = "https://dex-trade.com/tr/spot/trading/" + Name[i] + "USDT";
+                            }
+
+                            w.Until(IWebDriver => driver.FindElements(By.CssSelector(".buy-part .green-txt")));
+                            w.Until(IWebDriver => driver.FindElements(By.CssSelector(".sell-part .total")));
+                            Thread.Sleep(300);
+                            Task.Delay(300);
+
+                            IList<IWebElement> buyValues = driver.FindElements(By.CssSelector(".buy-part .green-txt"));
+                            IList<IWebElement> sellValues = driver.FindElements(By.CssSelector(".sell-part .red-txt"));
+                            IList<IWebElement> buyValuesTotal = driver.FindElements(By.CssSelector(".buy-part .total"));
+                            IList<IWebElement> sellValuesTotal = driver.FindElements(By.CssSelector(".sell-part .total"));
+
+                            Thread.Sleep(400);
+                            Task.Delay(400);
+
+                            checkAl = sellValues.Count;
+                            if (sellValues != null && checkAl > 0)
+                            {
+                                for (int j = checkAl - 1; j >= 0; j--)
+                                {
+
+
+                                    string value = sellValues.ElementAt(j).Text.Replace(".", ",");
+                                    string total = sellValuesTotal.ElementAt(j).Text.Replace(".", ",");
+                                    if (!string.IsNullOrWhiteSpace(value))
+                                    {
+                                        File.AppendAllText(filePath_Dextrade_Alis[i], value + Environment.NewLine + total + Environment.NewLine);
+                                    }
+
+
+
+                                }
+
+                                int count = 0;
+                                double[] DEXTRADEAl = new double[checkAl];
+                                List<string> lines_DEXTRADE_Alis = new List<string>();
+                                lines_DEXTRADE_Alis = File.ReadAllLines(filePath_Dextrade_Alis[i]).ToList();
+
+                                for (int j = 0; j < lines_DEXTRADE_Alis.Count; j++)
+                                {
+                                    if (((j * 2) + 1) < lines_DEXTRADE_Alis.Count)
+                                    {
+                                        P = lines_DEXTRADE_Alis[j * 2];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            DEXTRADEAl[j] = b;
+                                            if (DEXTRADEAl[j] <= (COIN_VALUE_PANCAKE * 0.90))
+                                            {
+                                                COIN_VALUE_ICLB_ALIS += DEXTRADEAl[j];
+                                                count++;
+                                                string fiyat2 = lines_DEXTRADE_Alis[(j * 2) + 1];
+                                                P = fiyat2;
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_AL += b;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_ALIS = COIN_VALUE_ICLB_ALIS / count;
+                                }
+                                File.WriteAllText(filePath_Dextrade_Alis[i], COIN_VALUE_ICLB_ALIS.ToString() + "\n" + USDT_AL.ToString());
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Alis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+                            checkSat = buyValues.Count;
+                            if (buyValues != null && checkSat > 0)
+                            {
+                                for (int j = 0; j < checkSat; j++)
+                                {
+
+                                    string value = buyValues.ElementAt(j).Text.Replace(".", ",");
+                                    string total = buyValuesTotal.ElementAt(j).Text.Replace(".", ",");
+                                    if (!string.IsNullOrWhiteSpace(value))
+                                    {
+                                        File.AppendAllText(filePath_Dextrade_Satis[i], value + Environment.NewLine + total + Environment.NewLine);
+                                    }
+                                }
+
+                                int count = 0;
+                                double[] DEXTRADESAT = new double[checkSat];
+                                List<string> lines_DEXTRADE_Satis = new List<string>();
+                                lines_DEXTRADE_Satis = File.ReadAllLines(filePath_Dextrade_Satis[i]).ToList();
+
+                                for (int j = 0; j < lines_DEXTRADE_Satis.Count; j++)
+                                {
+                                    if (((j * 2) + 1) < lines_DEXTRADE_Satis.Count)
+                                    {
+                                        P = lines_DEXTRADE_Satis[j * 2];
+                                        if (Double.TryParse(P, out b))
+                                        {
+                                            DEXTRADESAT[j] = b;
+                                            if (DEXTRADESAT[j] >= (COIN_VALUE_PANCAKE * 1.10))
+                                            {
+                                                COIN_VALUE_ICLB_SATIS += DEXTRADESAT[j];
+                                                count++;
+                                                string fiyat2 = lines_DEXTRADE_Satis[(j * 2) + 1];
+                                                P = fiyat2;
+                                                if (Double.TryParse(P, out b))
+                                                {
+                                                    USDT_SAT += b;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_SATIS = COIN_VALUE_ICLB_SATIS / count;
+                                }
+                                File.WriteAllText(filePath_Dextrade_Satis[i], COIN_VALUE_ICLB_SATIS.ToString() + "\n" + USDT_SAT.ToString());
+
+
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Satis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+
+                            fileExist = File.Exists(filePath_Dextrade_Alis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkAl > 0)
+                                {
+
+                                    List<string> lines_DEXTRADE_Alis = new List<string>();
+                                    lines_DEXTRADE_Alis = File.ReadAllLines(filePath_Dextrade_Alis[i]).ToList();
+                                    P = lines_DEXTRADE_Alis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_ALIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_DEXTRADE" + "_ALIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_DEXTRADE, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            fileExist = File.Exists(filePath_Dextrade_Satis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkSat > 0)
+                                {
+
+                                    List<string> lines_DEXTRADE_Satis = new List<string>();
+                                    lines_DEXTRADE_Satis = File.ReadAllLines(filePath_Dextrade_Satis[i]).ToList();
+                                    P = lines_DEXTRADE_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_SATIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_DEXTRADE" + "_SATIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_DEXTRADE, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        /////////////////// P2PB2B BASLANGIC /////////////////////////////////
+                        if (P2pb2b_Coins <= i && Latoken_Coins > i)
+                        {
+                            COIN_VALUE_ICLB_SATIS = 0.00;
+                            COIN_VALUE_ICLB_ALIS = 0.00;
+                            USDT_AL = 0.00;
+                            USDT_SAT = 0.00;
+                            if (BUSD[i] == i)
+                            {
+                                driver.Url = "https://p2pb2b.com/tr/trade/" + Name[i] + "_BUSD/";
+                            }
+                            else
+                            {
+                                driver.Url = "https://p2pb2b.com/tr/trade/" + Name[i] + "_USDT/";
+                            }
+
+                            w.Until(IWebDriver => driver.FindElement((By.CssSelector("[class*='Depth_tableCellTextEnd__'][class*='BaseTable_cell__'][data-id*='-2']"))));
+
+                            Thread.Sleep(delayVal2);
+                            Task.Delay(delayVal2);
+                            IReadOnlyCollection<IWebElement> elementsRed = driver.FindElements(By.XPath("//div[contains(@class, 'Depth_tableCellIsMyPriceIsRed')]"));
+                            IReadOnlyCollection<IWebElement> elementsGreen = driver.FindElements(By.XPath("//div[contains(@class, 'Depth_tableCellIsMyPriceIsGreen')]"));
+                            IReadOnlyCollection<IWebElement> elementsUsdt = driver.FindElements(By.CssSelector("[class*='Depth_tableCellTextEnd__'][class*='BaseTable_cell__'][data-id*='-2']")); Thread.Sleep(delayValLatoken);
+                            Task.Delay(delayValLatoken);
+                            checkAl = elementsRed.Count;
+                            // Iterate through the elements and extract the values
+                            if (checkAl > 0)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = 0; j < checkAl; j++)
+                                {
+                                    string fiyat = elementsRed.ElementAt(j).Text.Trim().Replace(".", ",");
+
+                                    File.AppendAllText(filePath_P2pb2b_Alis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] P2pb2bAl = new double[checkAl];
+                                List<string> lines_P2PB2B_Alis = new List<string>();
+                                lines_P2PB2B_Alis = File.ReadAllLines(filePath_P2pb2b_Alis[i]).ToList();
+
+                                for (int j = 0; j < checkAl; j++)
+                                {
+
+                                    P = lines_P2PB2B_Alis[j];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        P2pb2bAl[j] = b;
+                                        if (Ten[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 10;
+                                        }
+                                        if (Hundered[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 100;
+                                        }
+                                        if (OneK[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 1000;
+                                        }
+                                        if (TenK[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 10000;
+                                        }
+                                        if (HunderedK[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 100000;
+                                        }
+                                        if (OneM[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 1000000;
+                                        }
+                                        if (TenM[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 10000000;
+                                        }
+                                        if (HunderedM[i] == i)
+                                        {
+                                            P2pb2bAl[j] = b / 100000000;
+                                        }
+                                        if (P2pb2bAl[j] <= (COIN_VALUE_PANCAKE * 0.90))
+                                        {
+                                            COIN_VALUE_ICLB_ALIS += P2pb2bAl[j];
+                                            count++;
+                                            string fiyat2 = elementsUsdt.ElementAt(j).Text.Trim().Replace(".", ",");
+                                            P = fiyat2;
+                                            if (Double.TryParse(P, out b))
+                                            {
+                                                USDT_AL += b;
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_ALIS = COIN_VALUE_ICLB_ALIS / count;
+                                }
+                                File.WriteAllText(filePath_P2pb2b_Alis[i], COIN_VALUE_ICLB_ALIS.ToString() + "\n" + USDT_AL.ToString());
+
+
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Alis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+
+                            // Fiyat bilgilerini depolamak için liste oluştur
+
+                            checkSat = elementsGreen.Count;
+                            // Tüm elementleri döngüyle işle
+                            if (checkSat > 0)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = 0; j < checkSat; j++)
+                                {
+                                    string fiyat = elementsGreen.ElementAt(j).Text.Trim().Replace(".", ",");
+
+                                    File.AppendAllText(filePath_P2pb2b_Satis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] P2pb2bSat = new double[checkSat];
+                                List<string> lines_P2PB2B_Satis = new List<string>();
+                                lines_P2PB2B_Satis = File.ReadAllLines(filePath_P2pb2b_Satis[i]).ToList();
+
+                                for (int j = 0; j < checkSat; j++)
+                                {
+
+                                    P = lines_P2PB2B_Satis[j];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        P2pb2bSat[j] = b;
+                                        if (Ten[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 10;
+                                        }
+                                        if (Hundered[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 100;
+                                        }
+                                        if (OneK[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 1000;
+                                        }
+                                        if (TenK[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 10000;
+                                        }
+                                        if (HunderedK[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 100000;
+                                        }
+                                        if (OneM[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 1000000;
+                                        }
+                                        if (TenM[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 10000000;
+                                        }
+                                        if (HunderedM[i] == i)
+                                        {
+                                            P2pb2bSat[j] = b / 100000000;
+                                        }
+                                        if (P2pb2bSat[j] >= (COIN_VALUE_PANCAKE * 1.10))
+                                        {
+                                            COIN_VALUE_ICLB_SATIS += P2pb2bSat[j];
+                                            count++;
+                                            string fiyat2 = elementsUsdt.ElementAt(checkAl + j).Text.Trim().Replace(".", ",");
+                                            P = fiyat2;
+                                            if (Double.TryParse(P, out b))
+                                            {
+                                                USDT_SAT += b;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_SATIS = COIN_VALUE_ICLB_SATIS / count;
+                                }
+                                File.WriteAllText(filePath_P2pb2b_Satis[i], COIN_VALUE_ICLB_SATIS.ToString() + "\n" + USDT_SAT.ToString());
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Satis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+                            fileExist = File.Exists(filePath_P2pb2b_Alis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkAl != 0)
+                                {
+
+                                    List<string> lines_P2PB2B_Alis = new List<string>();
+                                    lines_P2PB2B_Alis = File.ReadAllLines(filePath_P2pb2b_Alis[i]).ToList();
+                                    P = lines_P2PB2B_Alis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_ALIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_P2PB2B" + "_ALIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_P2PB2B, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            fileExist = File.Exists(filePath_P2pb2b_Satis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkSat != 0)
+                                {
+
+                                    List<string> lines_P2PB2B_Satis = new List<string>();
+                                    lines_P2PB2B_Satis = File.ReadAllLines(filePath_P2pb2b_Satis[i]).ToList();
+                                    P = lines_P2PB2B_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_SATIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_P2PB2B" + "_SATIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_P2PB2B, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        /////////////////// LATOKEN BASLANGIC /////////////////////////////////
+                        if (Latoken_Coins <= i)
+                        {
+                            COIN_VALUE_ICLB_SATIS = 0.00;
+                            COIN_VALUE_ICLB_ALIS = 0.00;
+                            USDT_SAT = 0.00;
+                            USDT_AL = 0.00;
+                            if (Latoken_Coins == i)
+                            {
+                                driver.Manage().Window.Size = new Size(760, 1000);
+                            }
+                            driver.Url = "https://latoken.com/exchange/" + Name[i] + "_USDT";
+                            w.Until(IWebDriver => driver.FindElement(By.XPath("//span[contains(@class, 'MuiTypography-root') and contains(@class, 'jss') and contains(@class, 'MuiTypography-body2') and contains(@class, 'MuiTypography-colorTextPrimary') and contains(@data-tid, 'field__order_book_line_sell_')]")));
+
+                            Thread.Sleep(delayValLatoken);
+                            Task.Delay(delayValLatoken);
+                            IReadOnlyCollection<IWebElement> elementsAl = driver.FindElements(By.XPath("//span[contains(@class, 'MuiTypography-root') and contains(@class, 'jss') and contains(@class, 'MuiTypography-body2') and contains(@class, 'MuiTypography-colorTextPrimary') and contains(@data-tid, 'field__order_book_line_sell_')]"));
+                            IReadOnlyCollection<IWebElement> elementsSat = driver.FindElements(By.XPath("//span[contains(@class, 'MuiTypography-root') and contains(@class, 'jss') and contains(@class, 'MuiTypography-body2') and contains(@class, 'MuiTypography-colorTextPrimary') and contains(@data-tid, 'field__order_book_line_buy_')]"));
+                            Thread.Sleep(delayValLatoken);
+                            Task.Delay(delayValLatoken);
+                            checkSat = elementsSat.Count;
+                            // Iterate through the elements and extract the values
+                            if (checkSat >= 1)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = 0; j < 9; j++)
+                                {
+                                    string fiyat = elementsSat.ElementAt(j).Text.Trim().Replace(",", "").Replace(".", ",");
+
+                                    File.AppendAllText(filePath_Latoken_Satis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] LatokenSat = new double[9];
+                                List<string> lines_LATOKEN_Satis = new List<string>();
+                                lines_LATOKEN_Satis = File.ReadAllLines(filePath_Latoken_Satis[i]).ToList();
+
+                                for (int j = 0; j <= 8; j++)
+                                {
+
+                                    P = lines_LATOKEN_Satis[j * 3];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        LatokenSat[j] = b;
+                                        if (OneMilyar[i] == i)
+                                        {
+                                            LatokenSat[j] = b / 1000000000;
+                                        }
+                                        if (OneM[i] == i)
+                                        {
+                                            LatokenSat[j] = b / 1000000;
+                                        }
+                                        if (OneT[i] == i)
+                                        {
+                                            LatokenSat[j] = b / 1000000000000;
+                                        }
+                                        if (LatokenSat[j] >= (COIN_VALUE_PANCAKE * 1.10))
+                                        {
+                                            COIN_VALUE_ICLB_SATIS += LatokenSat[j];
+                                            count++;
+                                            P = lines_LATOKEN_Satis[2 + (j * 3)];
+                                            if (Double.TryParse(P, out b))
+                                            {
+                                                USDT_SAT = b;
+                                                if (OneMilyar[i] == i)
+                                                {
+                                                    USDT_SAT = b / 1000000000;
+                                                }
+                                                if (OneM[i] == i)
+                                                {
+                                                    USDT_SAT = b / 1000000;
+                                                }
+                                                if (OneT[i] == i)
+                                                {
+                                                    USDT_SAT = b / 1000000000000;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_SATIS = COIN_VALUE_ICLB_SATIS / count;
+                                }
+                                File.WriteAllText(filePath_Latoken_Satis[i], COIN_VALUE_ICLB_SATIS.ToString() + "\n" + USDT_SAT.ToString());
+
+
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Satis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+
+                            // Fiyat bilgilerini depolamak için liste oluştur
+                            List<string> fiyatlarRed = new List<string>();
+                            checkAl = elementsAl.Count;
+                            // Tüm elementleri döngüyle işle
+                            if (checkAl >= 1)
+                            {
+                                // Tüm elementleri döngüyle işle
+                                for (int j = checkAl - 1; j >= checkAl - 9; j--)
+                                {
+                                    string fiyat = elementsAl.ElementAt(j).Text.Trim().Replace(",", "").Replace(".", ",");
+
+                                    File.AppendAllText(filePath_Latoken_Alis[i], fiyat + "\n");
+                                }
+
+
+                                int count = 0;
+                                double[] LatokenAl = new double[9];
+                                List<string> lines_LATOKEN_Alis = new List<string>();
+                                lines_LATOKEN_Alis = File.ReadAllLines(filePath_Latoken_Alis[i]).ToList();
+
+                                for (int j = 0; j <= 8; j++)
+                                {
+
+                                    P = lines_LATOKEN_Alis[j * 3];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        LatokenAl[j] = b;
+                                        if (OneMilyar[i] == i)
+                                        {
+                                            LatokenAl[j] = b / 1000000000;
+                                        }
+                                        if (OneM[i] == i)
+                                        {
+                                            LatokenAl[j] = b / 1000000;
+                                        }
+                                        if (OneT[i] == i)
+                                        {
+                                            LatokenAl[j] = b / 1000000000000;
+                                        }
+                                        if (LatokenAl[j] <= (COIN_VALUE_PANCAKE * 0.90))
+                                        {
+                                            COIN_VALUE_ICLB_ALIS += LatokenAl[j];
+                                            count++;
+                                            P = lines_LATOKEN_Alis[2 + (j * 3)];
+                                            if (Double.TryParse(P, out b))
+                                            {
+                                                USDT_AL = b;
+                                                if (OneMilyar[i] == i)
+                                                {
+                                                    USDT_AL = b / 1000000000;
+                                                }
+                                                if (OneM[i] == i)
+                                                {
+                                                    USDT_AL = b / 1000000;
+                                                }
+                                                if (OneT[i] == i)
+                                                {
+                                                    USDT_AL = b / 1000000000000;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (count > 0)
+                                {
+                                    COIN_VALUE_ICLB_ALIS = COIN_VALUE_ICLB_ALIS / count;
+                                }
+                                File.WriteAllText(filePath_Latoken_Alis[i], COIN_VALUE_ICLB_ALIS.ToString() + "\n" + USDT_AL.ToString());
+                            }
+                            else
+                            {
+                                File.AppendAllText(Path + Final_Text_EROR, c + " - " + Name[i] + "_Alis  " + Contract[i] + " Text Dosyasi Bos " + "\n\n");
+                                c++;
+                            }
+
+
+                            fileExist = File.Exists(filePath_Latoken_Alis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkAl != 0)
+                                {
+
+                                    List<string> lines_LATOKEN_Alis = new List<string>();
+                                    lines_LATOKEN_Alis = File.ReadAllLines(filePath_Latoken_Alis[i]).ToList();
+                                    P = lines_LATOKEN_Alis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_ALIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_LATOKEN" + "_ALIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_LATOKEN, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                            fileExist = File.Exists(filePath_Latoken_Satis[i]);
+                            if (fileExist)
+                            {
+
+                                if (checkSat != 0)
+                                {
+
+                                    List<string> lines_LATOKEN_Satis = new List<string>();
+                                    lines_LATOKEN_Satis = File.ReadAllLines(filePath_Latoken_Satis[i]).ToList();
+                                    P = lines_LATOKEN_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+
+                                        COIN_VALUE_ICLB_SATIS = b;
+
+                                    }
+                                    else
+                                    {
+                                        createText = (k + " - " + Name[i] + "_LATOKEN" + "_SATIS" + " " + " Bir deger degil = " + P + " " + Contract[i] + "\n\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_LATOKEN, createText);
+                                        k++;
+                                    }
+                                }
+                            }
+
+                        }
+
+
+
+                        /////////////////// FINAL BASLANGIC /////////////////////////////////
+
+                        Final = ((COIN_VALUE_ICLB_SATIS * 100) / COIN_VALUE_PANCAKE) - 100;
+                        if (Final >= 10 && 10000000000000000 >= Final)
+                        {
+                            ///////         INDOEX ICIN         ///////////
+                            if (Coinsbit_Coins > i)
+                            {
+                                if (new FileInfo(filePath_INDOEX_Satis[i]).Length != 0)
+                                {
+                                    List<string> lines_INDOEX_Satis = new List<string>();
+                                    lines_INDOEX_Satis = File.ReadAllLines(filePath_INDOEX_Satis[i]).ToList();
+                                    P = lines_INDOEX_Satis[0];
+
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i] + "   "  + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nIndoex = " + COIN_VALUE_ICLB_SATIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F18") + "\n\n" + " MAX USDT " + USDT_SAT.ToString() + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_INDOEX, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         COINSBIT ICIN         ///////////
+                            if (Coinsbit_Coins <= i && Dextrade_Coins > i)
+                            {
+                                if (checkSat != 0)
+                                {
+                                    List<string> lines_COINSBIT_Satis = new List<string>();
+                                    lines_COINSBIT_Satis = File.ReadAllLines(filePath_Coinsbit_Satis[i]).ToList();
+                                    P = lines_COINSBIT_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nCoinsbit = " + COIN_VALUE_ICLB_SATIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT " + USDT_SAT.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_COINSBIT, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+
+
+
+                            ///////         DEXTRADE ICIN         ///////////
+                            if (Dextrade_Coins <= i && P2pb2b_Coins > i)
+                            {
+                                if (checkSat > 0)
+                                {
+                                    List<string> lines_DEXTRADE_Satis = new List<string>();
+                                    lines_DEXTRADE_Satis = File.ReadAllLines(filePath_Dextrade_Satis[i]).ToList();
+                                    P = lines_DEXTRADE_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nDextrade = " + COIN_VALUE_ICLB_SATIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT  " + USDT_SAT.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_DEXTRADE, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         P2PB2B ICIN         ///////////
+                            if (P2pb2b_Coins <= i && Latoken_Coins > i)
+                            {
+                                if (checkSat > 0)
+                                {
+                                    List<string> lines_P2PB2B_Satis = new List<string>();
+                                    lines_P2PB2B_Satis = File.ReadAllLines(filePath_P2pb2b_Satis[i]).ToList();
+                                    P = lines_P2PB2B_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nP2pb2b = " + COIN_VALUE_ICLB_SATIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT  " + USDT_SAT.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_P2PB2B, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+
+                            ///////         LATOKEN ICIN         ///////////
+                            if (Latoken_Coins <= i)
+                            {
+                                if (checkSat != 0)
+                                {
+                                    List<string> lines_LATOKEN_Satis = new List<string>();
+                                    lines_LATOKEN_Satis = File.ReadAllLines(filePath_Latoken_Satis[i]).ToList();
+                                    P = lines_LATOKEN_Satis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_PANCAKE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nLatoken = " + COIN_VALUE_ICLB_SATIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT  " + USDT_SAT.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_LATOKEN, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+
+                        }
+
+
+                        Final = ((COIN_VALUE_PANCAKE * 100) / COIN_VALUE_ICLB_ALIS) - 100;
+                        if (Final >= 10 && 100000000000000000 >= Final)
+                        {
+                            ///////         INDOEX ICIN         ///////////
+                            if (Coinsbit_Coins > i)
+                            {
+                                if (new FileInfo(filePath_INDOEX_Alis[i]).Length != 0)
+                                {
+                                    List<string> lines_INDOEX_Alis = new List<string>();
+                                    lines_INDOEX_Alis = File.ReadAllLines(filePath_INDOEX_Alis[i]).ToList();
+                                    P = lines_INDOEX_Alis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_INDOEX" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nIndoex = " + COIN_VALUE_ICLB_ALIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F18") + "\n\n" + " MAX USDT " + USDT_AL.ToString() + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_INDOEX, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         COINSBIT ICIN         ///////////
+                            if (Coinsbit_Coins <= i && Dextrade_Coins > i)
+                            {
+                                if (checkAl != 0)
+                                {
+                                    List<string> lines_COINSBIT_Alis = new List<string>();
+                                    lines_COINSBIT_Alis = File.ReadAllLines(filePath_Coinsbit_Alis[i]).ToList();
+                                    P = lines_COINSBIT_Alis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_COINSBIT" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nCoinsbit = " + COIN_VALUE_ICLB_ALIS.ToString("F16") + " " + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT " + USDT_AL.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_COINSBIT, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         DEXTRADE ICIN         ///////////
+                            if (Dextrade_Coins <= i && P2pb2b_Coins > i)
+                            {
+                                if (checkAl > 0)
+                                {
+                                    List<string> lines_DEXTRADE_Alis = new List<string>();
+                                    lines_DEXTRADE_Alis = File.ReadAllLines(filePath_Dextrade_Alis[i]).ToList();
+                                    P = lines_DEXTRADE_Alis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_DEXTRADE" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nDextrade = " + COIN_VALUE_ICLB_ALIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT " + USDT_AL.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_DEXTRADE, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         P2PB2B ICIN         ///////////
+                            if (P2pb2b_Coins <= i && Latoken_Coins > i)
+                            {
+                                if (checkAl > 0)
+                                {
+                                    List<string> lines_P2PB2B_Alis = new List<string>();
+                                    lines_P2PB2B_Alis = File.ReadAllLines(filePath_P2pb2b_Alis[i]).ToList();
+                                    P = lines_P2PB2B_Alis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_P2PB2B" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nP2pb2b = " + COIN_VALUE_ICLB_ALIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT " + USDT_AL.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_P2PB2B, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                            ///////         LATOKEN ICIN         ///////////
+                            if (Latoken_Coins <= i)
+                            {
+                                if (checkAl != 0)
+                                {
+                                    List<string> lines_LATOKEN_Alis = new List<string>();
+                                    lines_LATOKEN_Alis = File.ReadAllLines(filePath_Latoken_Alis[i]).ToList();
+                                    P = lines_LATOKEN_Alis[0];
+                                    if (Double.TryParse(P, out b))
+                                    {
+                                        Double.TryParse(P, out b);
+                                        createText = ("\n" + k + " - " + Name[i] + "_LATOKEN" + "_" + " " + String.Format("{0:0.00}", Final) + " (  %10+  )\n " + NOTE10[i] + "\n" + NOTEINDOEX[i] + "   " + NOTECOINSBIT[i] + "   " + NOTEDEXTRADE[i] + "   " + NOTEP2PB2B[i]  + "   " + NOTELATOKEN[i] + "   " + "\n" + NOTE10INDOEX[i] + "   " + NOTE10COINSBIT[i] + "   " + NOTE10DEXTRADE[i] + "   " + NOTE10P2PB2B[i]  + "   " + NOTE10LATOKEN[i] + "   " + "\nLatoken = " + COIN_VALUE_ICLB_ALIS.ToString("F16") + "\nPancake = " + COIN_VALUE_PANCAKE.ToString("F16") + "\n\n" + " MAX USDT " + USDT_AL.ToString("F4") + "\n\n" + Contract[i] + "\n") + Environment.NewLine;
+                                        File.AppendAllText(Path + Final_Text_LATOKEN, createText);
+                                        k++;
+                                    }
+                                    else { }
+                                }
+                            }
+
+                        }
+                        break;
+                    }
+
+                    catch (Exception ex)
+                    {
+                        retryCount2++;
+                        if (retryCount2 == 1)
+                        {
+                            File.AppendAllText(Path + Final_Text_EROR, "\n" + k + " - " + GetLineNumber(ex.StackTrace) + " " + "RETRY = 1 KONTROL ET BORSADA PROBLEM " + Name[i] + " " + Contract[i] + " " + ex.Message + "\n");
+                            k++;
+                        }
+                        if (retryCount2 == 2)
+                        {
+                            File.AppendAllText(Path + Final_Text_EROR, "\n" + k + " - " + GetLineNumber(ex.StackTrace) + " " + "RETRY = 2 KONTROL ET BORSADA PROBLEM " + Name[i] + " " + Contract[i] + " " + ex.Message + "\n");
+                            k++;
+                        }
+
+                    }
+
+
+                }
+            }
+
+
+
+
+
+
+
+
+            File.AppendAllText(Path + Final_Text_LATOKEN, "\nScreenshot and text extraction completed successfully.\n\n\n");
+
+
+            mail.To.Add("shibacoin85@gmail.com");
+            mail.Subject = "FINISH";
+            mail.Body = "PROGRAM BITTI !!!";
+            SmtpServer.Send(mail);
+
+            driver.Quit();
+        }
+
+        /// PANCAKE   ////////////////////
+        public void PancakeScreenshot(string Name, IWebDriver driver, IWebElement element)
+        {
+
+            string Pancake_Texts_File_Location = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\PANCAKE_HEPSI\PANCAKE_TEXTS\";
+
+
+            string fileNameALIS = Name + "_PANCAKE" + ".jpg";
+            string TextfileNameALIS = Name + "_PANCAKE.txt";
+            string filePath = Pancake_Texts_File_Location + TextfileNameALIS;
+
+            string text = element.Text;
+
+            // Extract the desired value from the text
+            string value = text;
+            File.WriteAllText(filePath, value);
+
+            string a;
+            List<string> lines = new List<string>();
+            lines = File.ReadAllLines(filePath).ToList();
+
+            a = lines[1];
+            File.WriteAllText(filePath, a);
+
+            string Kontrol = File.ReadAllText(filePath);
+            string Patt = @"[\d]+(\.[\d]+)?";
+
+            Regex regex = new Regex(Patt);
+            MatchCollection matches = regex.Matches(Kontrol);
+
+            // Dosya içeriğindeki ondalık sayıları bir dizeye yazın.
+            string decimalString = "";
+            foreach (Match match in matches)
+            {
+                decimalString += match.Value + "\n";
+            }
+            File.WriteAllText(filePath, decimalString);
+            lines = File.ReadAllLines(filePath).ToList();
+            a = lines[0].Replace(".", ",");
+            File.WriteAllText(filePath, a);
+
+        }
+
+        ///INDOEX
+        public void IndoexScreenshot_Alis(string Name, IWebDriver driver, IWebElement element)
+        {
+            string fileNameALIS = Name + "_INDOEX_ALIS" + ".jpg";
+            string TextfileNameALIS = Name + "_INDOEX_ALIS.txt";
+            string Alis = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_TEXTS\" + TextfileNameALIS;
+            Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
+
+            Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
+            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
+            croppedImage.Y = 192;
+            croppedImage.Width = 180;
+            croppedImage.Height = 25;
+            screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
+            var newbmp = new Bitmap(screenshot);
+
+            for (int row = 0; row < screenshot.Width; row++) // Indicates row number
+
+            {
+                for (int column = 0; column < screenshot.Height; column++) // Indicate column number
+
+                {
+
+                    var colorValue = screenshot.GetPixel(row, column); // Get the color pixel
+
+                    var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+
+                    newbmp.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
+
+                }
+            }
+
+            newbmp.Save(String.Format(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameALIS, ImageFormat.Jpeg));
+
+            IronOcr.License.LicenseKey = "IRONSUITE.SEVSEF97.GMAIL.COM.25231-BFEE3D9BC0-KRDOO-ZLR5VEQ66SQX-LJOWHVVMXQC3-BIKTZQNMMMCJ-2K5KMSFCOJ2A-FAWSEKJZKVTG-KT7PAJQKB63A-KEDGLN-TW4KF7KZDQOKEA-DEPLOYMENT.TRIAL-GREOOS.TRIAL.EXPIRES.05.AUG.2023";
+            string someText_INDOEX_ALIS = (new IronOcr.IronTesseract().Read(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameALIS).Text);
+            File.WriteAllText(Alis, someText_INDOEX_ALIS);
+
+
+            bool fileExist = File.Exists(Alis);
+
+            if (fileExist)
+            {
+                if (new FileInfo(Alis).Length == 0)
+                {
+
+                    screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
+                    croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
+                    croppedImage.Y = 180;
+                    croppedImage.Width = 200;
+                    croppedImage.Height = 25;
+                    screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
+                    newbmp = new Bitmap(screenshot);
+                    for (int row = 0; row < screenshot.Width; row++) // Indicates row number
+
+                    {
+                        for (int column = 0; column < screenshot.Height; column++) // Indicate column number
+
+                        {
+
+                            var colorValue = screenshot.GetPixel(row, column); // Get the color pixel
+
+                            var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+
+                            newbmp.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
+
+                        }
+                    }
+
+                    newbmp.Save(String.Format(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameALIS, ImageFormat.Jpeg));
+                    someText_INDOEX_ALIS = (new IronOcr.IronTesseract().Read(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameALIS).Text);
+                    File.WriteAllText(Alis, someText_INDOEX_ALIS);
+
+                    if (new FileInfo(Alis).Length != 0)
+                    {
+                        List<string> lines = new List<string>();
+                        lines = File.ReadAllLines(Alis).ToList();
+                        string a = lines[0].Replace(".", ",").Replace("°", "").Replace("%", "").Replace("\"", "").Replace("o,", "0,0").Replace("s", "8").Replace("o", "0").Replace("n", "11").Replace("m", "11").Replace("M", "11").Replace("I", "0").Replace("N", "1");
+                        char[] charArr = a.ToCharArray();
+                        char ch = charArr[1];
+                        if (ch != ',')
+                        {
+                            a = a.Insert(1, ",");
+
+                        }
+                        File.WriteAllText(Alis, a);
+                    }
+                }
+                else
+                {
+                    List<string> lines = new List<string>();
+                    lines = File.ReadAllLines(Alis).ToList();
+                    string a = lines[0].Replace(".", ",").Replace("°", "").Replace("%", "").Replace("\"", "").Replace("o,", "0,0").Replace("s", "8").Replace("o", "0").Replace("n", "11").Replace("m", "11").Replace("M", "11").Replace("I", "0").Replace("N", "1");
+                    char[] charArr = a.ToCharArray();
+                    char ch = charArr[1];
+                    if (ch != ',')
+                    {
+                        a = a.Insert(1, ",");
+
+                    }
+                    File.WriteAllText(Alis, a);
+                }
+
+            }
+
+
+        }
+        public void IndoexScreenshot_Satis(string Name, IWebDriver driver, IWebElement element)
+        {
+            string fileNameSATIS = Name + "_INDOEX_SATIS" + ".jpg";
+            string TextfileNameSATIS = Name + "_INDOEX_SATIS.txt";
+            string Satis = @"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_TEXTS\" + TextfileNameSATIS;
+            Byte[] byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
+
+            Bitmap screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
+            Rectangle croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
+            croppedImage.X = 980;
+            croppedImage.Y = 192;
+            croppedImage.Width = 180;
+            croppedImage.Height = 25;
+            screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
+            var newbmp = new Bitmap(screenshot);
+
+            for (int row = 0; row < screenshot.Width; row++) // Indicates row number
+
+            {
+                for (int column = 0; column < screenshot.Height; column++) // Indicate column number
+
+                {
+
+                    var colorValue = screenshot.GetPixel(row, column); // Get the color pixel
+
+                    var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+
+                    newbmp.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
+
+                }
+            }
+
+            newbmp.Save(String.Format(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameSATIS, ImageFormat.Jpeg));
+
+            IronOcr.License.LicenseKey = "IRONSUITE.SEVSEF97.GMAIL.COM.25231-BFEE3D9BC0-KRDOO-ZLR5VEQ66SQX-LJOWHVVMXQC3-BIKTZQNMMMCJ-2K5KMSFCOJ2A-FAWSEKJZKVTG-KT7PAJQKB63A-KEDGLN-TW4KF7KZDQOKEA-DEPLOYMENT.TRIAL-GREOOS.TRIAL.EXPIRES.05.AUG.2023";
+            string someText_INDOEX_SATIS = (new IronOcr.IronTesseract().Read(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameSATIS).Text);
+            File.WriteAllText(Satis, someText_INDOEX_SATIS);
+
+            bool fileExist = File.Exists(Satis);
+
+            if (fileExist)
+            {
+                if (new FileInfo(Satis).Length == 0)
+                {
+
+                    screenshot = new Bitmap(new System.IO.MemoryStream(byteArray));
+                    croppedImage = new Rectangle(element.Location.X, element.Location.Y, element.Size.Width, element.Size.Height);
+                    croppedImage.X = 980;
+                    croppedImage.Y = 190;
+                    croppedImage.Width = 200;
+                    croppedImage.Height = 25;
+                    screenshot = screenshot.Clone(croppedImage, screenshot.PixelFormat);
+                    newbmp = new Bitmap(screenshot);
+
+                    for (int row = 0; row < screenshot.Width; row++) // Indicates row number
+
+                    {
+                        for (int column = 0; column < screenshot.Height; column++) // Indicate column number
+
+                        {
+
+                            var colorValue = screenshot.GetPixel(row, column); // Get the color pixel
+
+                            var averageValue = ((int)colorValue.R + (int)colorValue.B + (int)colorValue.G) / 3; // get the average for black and white
+
+                            newbmp.SetPixel(row, column, Color.FromArgb(averageValue, averageValue, averageValue)); // Set the value to new pixel
+
+                        }
+                    }
+
+                    newbmp.Save(String.Format(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameSATIS, ImageFormat.Jpeg));
+                    someText_INDOEX_SATIS = (new IronOcr.IronTesseract().Read(@"C:\Users\Khagan\Desktop\CODES_VISUAL_CODE\Visual Codes\screenshootarbise2\screenshootarbise2\bin\INDOEX\INDOEX_EKRAN_RESIMLERI\" + fileNameSATIS).Text);
+                    File.WriteAllText(Satis, someText_INDOEX_SATIS);
+
+                    if (new FileInfo(Satis).Length != 0)
+                    {
+                        List<string> lines = new List<string>();
+                        lines = File.ReadAllLines(Satis).ToList();
+                        string a = lines[0].Replace(".", ",").Replace("°", "").Replace("%", "").Replace("\"", "").Replace("o,", "0,0").Replace("s", "8").Replace("o", "0").Replace("n", "11").Replace("m", "11").Replace("M", "11").Replace("I", "0").Replace("N", "1");
+                        char[] charArr = a.ToCharArray();
+                        char ch = charArr[1];
+                        if (ch != ',')
+                        {
+                            a = a.Insert(1, ",");
+
+                        }
+                        File.WriteAllText(Satis, a);
+                    }
+                }
+                else
+                {
+                    List<string> lines = new List<string>();
+                    lines = File.ReadAllLines(Satis).ToList();
+                    string a = lines[0].Replace(".", ",").Replace("°", "").Replace("%", "").Replace("\"", "").Replace("o,", "0,0").Replace("s", "8").Replace("o", "0").Replace("n", "11").Replace("m", "11").Replace("M", "11").Replace("I", "0").Replace("N", "1");
+                    char[] charArr = a.ToCharArray();
+                    char ch = charArr[1];
+                    if (ch != ',')
+                    {
+                        a = a.Insert(1, ",");
+
+                    }
+                    File.WriteAllText(Satis, a);
+                }
+
+            }
+
+
+        }
+
+        private int GetLineNumber(string stackTrace)
+        {
+            Match match = Regex.Match(stackTrace, @"line (\d+)");
+            if (match.Success && int.TryParse(match.Groups[1].Value, out int lineNumber))
+            {
+                return lineNumber;
+            }
+            return 0;
+        }
+
+    }
+}
